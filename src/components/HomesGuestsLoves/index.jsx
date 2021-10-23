@@ -3,7 +3,7 @@ import data from "./Data";
 import HomesCol from "./HomesCol";
 import {ArrowRight} from "./ArrowRight";
 import {ArrowLeft} from "./ArrowLeft";
-import arrowSlider from "./picture/arrow-slider.svg";
+
 
 
 function Homes() {
@@ -27,8 +27,8 @@ function Homes() {
           <div className="homes__section-col" id="homes__section-col">
             {placesViem}
           </div>
-          <ArrowRight image={arrowSlider}/>
-          <ArrowLeft image={arrowSlider}/>
+          <ArrowRight />
+          <ArrowLeft />
         </div>
       </div>
     </div>

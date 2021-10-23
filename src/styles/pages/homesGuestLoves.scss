@@ -31,6 +31,7 @@ $background-gray: #eaf0f9;
   font-size: 48px;
 }
 
+
 .homes {
   background-color: $background-gray;
   &__caption{
@@ -70,20 +71,18 @@ $background-gray: #eaf0f9;
     border-radius: 50%;
     background-color: $stroke-color;
     text-align: center;
-    line-height: 40px;
+    line-height: 35px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.5);
   }
-  &__svg_arrow-right img {
+  &__svg_arrow-right svg {
     transform: rotate(270deg);
-    width: 24px;
   }
   &__svg_arrow-left {
     left: 8px;
     transform: translate(-50%,-50%);
   }
-  &__svg_arrow-left img {
+  &__svg_arrow-left svg {
     transform: rotate(90deg);
-    width: 24px;
   }
   &__col {
     width: 296px;
