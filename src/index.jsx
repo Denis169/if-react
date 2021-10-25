@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
 import App from './App';
-import data from "./components/HomesGuestsLoves/Data";
+import data from "./Data";
 
 ReactDOM.render(
   <React.StrictMode>

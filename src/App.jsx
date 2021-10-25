@@ -1,13 +1,13 @@
 import React from "react";
 import './styles/index.scss';
-import Homes from "./components/HomesGuestsLoves";
-
+import Homes from "./components/HomesGuestsLoves/homes";
+import data from "./Data";
 
 
 function App() {
   return (
     <div className="App">
-      <Homes />
+      <Homes data={data}/>
     </div>
   );
 }

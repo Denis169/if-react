@@ -1,12 +1,11 @@
 import React from "react";
-import data from "./Data";
-import HomesCol from "./HomesCol";
-import {ArrowRight} from "./ArrowRight";
-import {ArrowLeft} from "./ArrowLeft";
+import HomesCol from "./homes-col";
+import {ArrowRight} from "./arrow-right";
+import {ArrowLeft} from "./arrow-left";
 
 
 
-function Homes() {
+function Homes({data}) {
 
   const placesViem = data.map((place) => (
       <HomesCol

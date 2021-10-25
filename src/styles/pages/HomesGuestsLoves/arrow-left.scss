@@ -1,0 +1,19 @@
+@import "../../variable";
+
+.homes__svg_arrow-left {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  top: 41%;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: $stroke-color;
+  text-align: center;
+  line-height: 35px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  left: 8px;
+  transform: translate(-50%,-50%);
+  & svg {
+    transform: rotate(90deg);
+  }
+}
