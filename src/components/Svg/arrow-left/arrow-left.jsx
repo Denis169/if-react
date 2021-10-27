@@ -1,8 +1,9 @@
 import React from "react";
+import './arrow-left.scss'
 
-export function ArrowLeft() {
+const ArrowLeft = ({left}) => {
   return (
-    <div className="homes__svg_arrow-left" id="homes-arrow-left">
+    <div className="homes__svg_arrow-left" id="homes-arrow-left" onClick={left}>
       <svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1.17647 1.00001L9.38823 7.15884C10.0993 7.69217 11.0771 7.69217 11.7882 7.15884L20 1.00001" stroke="#383838" strokeWidth="2"/>
       </svg>
@@ -10,3 +11,4 @@ export function ArrowLeft() {
   )
 }
 
+export default ArrowLeft;

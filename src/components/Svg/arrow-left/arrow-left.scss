@@ -1,4 +1,4 @@
-@import "../../variable";
+@import "../../../styles/variable";
 
 .homes__svg_arrow-left {
   position: absolute;
@@ -15,5 +15,8 @@
   transform: translate(-50%,-50%);
   & svg {
     transform: rotate(90deg);
+  }
+  &__display-none {
+    display: none;
   }
 }
