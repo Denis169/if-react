@@ -6,7 +6,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'app.js',
-    publicPath: '/',
   },
   module: {
     rules: [
@@ -15,11 +14,12 @@ module.exports = {
         use: 'html-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|c)ss$/i,
         use:
           [
             'style-loader',
-            'css-loader'
+            'css-loader',
+            "sass-loader"
           ]
       },
       {
@@ -27,22 +27,11 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.png$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(png|svg|jp?g|gif)$/,
+        test: /\.(png|svg|jp?g|gif|ico)$/,
         use: [{
           loader: 'file-loader',
           options: {
-            outputPath: 'assets/images/',
+            outputPath: 'images/',
             name: '[name].[ext]'
           }
         }]
@@ -52,33 +41,12 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            outputPath: 'assets/fonts/',
+            outputPath: 'fonts/',
             name: '[name].[ext]'
           }
         }]
-      },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: "babel-loader"
-          },
-          {
-            loader: "react-svg-loader",
-            options: {
-              jsx: true // true outputs JSX tags
-            }
-          }
-        ]
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",
-        ],
-      },
+      }
+
     ]
   },
   resolve: {
@@ -89,8 +57,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      inject: true,
-      template: './public/index.html'
+      template: 'public/index.html'
     }),
   ]
 };

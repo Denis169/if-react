@@ -1,5 +1,9 @@
 @import "../../../styles/variable";
 
+.container {
+  @extend %container
+}
+
 .homes {
   background-color: $background-gray;
   &__caption{

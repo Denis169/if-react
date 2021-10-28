@@ -1,0 +1,19 @@
+@import "../../../styles/variable";
+
+
+.container {
+  @extend %container
+}
+
+header {
+  background-color: $primary-dark;
+  background-image: url('../../image/castelmezzano.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.header{
+  &__top-section{
+
+  }
+}

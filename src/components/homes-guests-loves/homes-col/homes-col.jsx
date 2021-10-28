@@ -1,5 +1,5 @@
 import React from "react";
-import './homes-col.scss'
+import './homes-col.scss';
 
 const HomesCol = ({imageUrl, name, city, country}) => {
   return (
