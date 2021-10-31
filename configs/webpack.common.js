@@ -28,23 +28,11 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jp?g|gif|ico)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            outputPath: 'images/',
-            name: '[name].[ext]'
-          }
-        }]
+        type: 'asset/resource',
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            outputPath: 'fonts/',
-            name: '[name].[ext]'
-          }
-        }]
+        type: 'asset/resource',
       }
 
     ]

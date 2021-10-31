@@ -1,0 +1,71 @@
+@import "../../../styles/variable";
+
+.input {
+  &__place,
+  &__date,
+  &__adults {
+    font-size: 18px;
+    line-height: 64px;
+    color: $primary-text;
+  }
+  &__place:focus,
+  &__date:focus,
+  &__adults:focus{
+    border: 3px solid $secondary;
+  }
+}
+
+.input-button {
+  background-color: $primary;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 100%;
+  color: $white;
+  cursor: pointer;
+}
+
+
+.header {
+  &__form {
+    width: 100%;
+    background-color: $white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    margin: 145px 0 120px 0;
+  }
+  &__input-place-block {
+    flex-basis: 39%;
+    position: relative;
+    label {
+      position: absolute;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 21px;
+      text-align: center;
+      color: $white;
+      margin-left: 20px;
+      bottom: 87px;
+    }
+  }
+  &__input-date-block {
+    flex-basis: 21%;
+    position: relative;
+  }
+  &__input-adults-block {
+    flex-basis: 26%;
+    position: relative;
+  }
+  &__input {
+    padding: 0 25px 0 25px;
+    border-radius: 5px;
+    width: 100%;
+    height: 64px;
+    border: none;
+    outline: none;
+  }
+  &__input-button-block {
+    flex-basis: 16%;
+  }
+}

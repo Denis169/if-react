@@ -1,19 +1,26 @@
 @import "../../../styles/variable";
 
-
 .container {
   @extend %container
 }
 
+h1 {
+  width: 542px;
+  font-size: 46px;
+  line-height: 59px;
+  color: $white;
+}
+
 header {
   background-color: $primary-dark;
-  background-image: url('../../image/castelmezzano.png');
+  background-image: url("../.././image/castelmezzano.png");
   background-size: cover;
   background-position: center;
 }
 
 .header{
   &__top-section{
-
+    margin-top: 200px;
+    margin-bottom: 150px;
   }
 }
