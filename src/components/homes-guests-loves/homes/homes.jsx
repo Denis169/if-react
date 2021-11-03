@@ -9,28 +9,30 @@ class Homes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
       styleLeft: false,
       styleRight: true,
     }
   }
 
-  componentDidMount() {
-    this.props.data.length < 5 && this.setState({styleRight: false});
-  }
-
   clickRight = (event) => {
     event.preventDefault();
-    this.state.count < this.props.data.length - 4 && this.setState({count: this.state.count + 1});
-    this.state.count > -1 && this.setState({styleLeft: true});
-    this.state.count === this.props.data.length - 5 && this.setState({styleRight: false});
+    this.props.count < this.props.data.length - 4 && this.props.plus(this.props.count);
+    this.props.count > -1 && this.setState({styleLeft: true});
+    this.props.count === this.props.data.length - 5 && this.setState({styleRight: false});
   }
 
   clickLeft = (event) => {
     event.preventDefault();
-    this.state.count > 0 && this.setState({count: this.state.count - 1});
-    this.state.count === 1 && this.setState({styleLeft: false});
-    this.state.count === this.props.data.length - 4 && this.setState({styleRight: true});
+    this.props.count > 0 && this.props.minus(this.props.count);
+    this.props.count <= 1 && this.setState({styleLeft: false});
+    this.props.count === this.props.data.length - 4 && this.setState({styleRight: true});
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.count !== prevProps.count && this.state.styleLeft && this.props.count < 1) {
+      this.setState({styleLeft: false});
+      this.setState({styleRight: true});
+    }
   }
 
   render() {
@@ -41,7 +43,7 @@ class Homes extends React.Component {
           <div className="homes__section">
             <div className="homes__section-col" id="homes__section-col">
               {this.props.data.length === 0 && "Match not found, try setting other search options!"}
-              {this.props.data.filter((place, i) => i >= this.state.count && i <= this.state.count + 3).map(place => (
+              {this.props.data.filter((place, i) => i >= this.props.count && i <= this.props.count + 3).map(place => (
                 <HomesCol
                   name={place.name}
                   imageUrl={place.imageUrl}
@@ -51,8 +53,8 @@ class Homes extends React.Component {
                 />
               ))}
             </div>
-            {this.state.styleRight && <ArrowRight right={this.clickRight} key={19}/>}
-            {this.state.styleLeft && <ArrowLeft left={this.clickLeft} key={20}/>}
+            {this.state.styleRight && <ArrowRight right={this.clickRight} classArrow={this.props.classArrow} key={19}/>}
+            {this.state.styleLeft && <ArrowLeft classArrow={this.props.classArrow} left={this.clickLeft} key={20}/>}
           </div>
         </div>
       </div>
