@@ -1,8 +1,10 @@
 import React from "react";
-import './homes.scss';
+
 import HomesCol from "../homes-col/homes-col";
 import ArrowRight from "../../Svg/arrow-right/arrow-right";
 import ArrowLeft from "../../Svg/arrow-left/arrow-left";
+
+import './homes.scss';
 
 
 class Homes extends React.Component {

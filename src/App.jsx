@@ -1,8 +1,10 @@
 import React from "react";
-import './styles/index.scss';
+import axios from "axios";
+
 import Homes from "./components/homes-guests-loves/homes/homes";
 import Header from "./components/header/header/header";
-import axios from "axios";
+
+import './styles/index.scss';
 
 
 class App extends React.Component {

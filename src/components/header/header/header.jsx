@@ -1,6 +1,6 @@
 import React from "react";
-import "./header.scss";
 import Form from "../form/form";
+import "./header.scss";
 
 const Header = ({search, searchChange, addAvailable}) => {
 
