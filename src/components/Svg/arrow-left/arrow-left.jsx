@@ -1,5 +1,5 @@
 import React from "react";
-import arrowSlider from '../../image/arrow-slider.svg'
+import arrowSlider from '../../../assets/image/arrow-slider.svg'
 import './arrow-left.scss'
 
 const ArrowLeft = ({left, classArrow}) => {

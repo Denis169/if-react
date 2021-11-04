@@ -13,14 +13,26 @@ h1 {
 
 header {
   background-color: $primary-dark;
-  background-image: url("../.././image/castelmezzano.png");
+  background-image: url("../../../assets/image/castelmezzano.png");
   background-size: cover;
   background-position: center;
 }
 
-.header{
-  &__top-section{
+
+.header {
+  &__top-section {
     margin-top: 200px;
     margin-bottom: 150px;
+  }
+
+  &__market {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__google-apple-image {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 120px;
   }
 }

@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
 
-import Homes from "./components/homes-guests-loves/homes/homes";
-import Header from "./components/header/header/header";
+import Homes from "../components/homes-guests-loves/homes/homes";
+import Header from "../components/header/header/header";
 
-import './styles/index.scss';
+import {urlHomes, urlAvailable} from "../constants/urls";
+import '../styles/index.scss';
 
 
 class App extends React.Component {
@@ -20,8 +21,6 @@ class App extends React.Component {
       countAvailable: 0,
       countHomes: 0,
     }
-    this.homes = 'https://fe-student-api.herokuapp.com/api/hotels/popular'
-    this.available = 'https://fe-student-api.herokuapp.com/api/hotels?search='
   }
 
   searchChange = (event) => {
@@ -31,7 +30,7 @@ class App extends React.Component {
   addAvailable = (event) => {
     event.preventDefault();
     this.state.search && this.setState({available: true});
-    axios.get(this.available + this.state.search)
+    axios.get(urlAvailable + this.state.search)
       .then(response => {
         this.setState({availableData: response.data});
         this.setState({refreshCount: true});
@@ -51,7 +50,7 @@ class App extends React.Component {
   minusCountHomes = () => this.setState({countHomes: this.state.countHomes - 1});
 
   componentDidMount() {
-    axios.get(this.homes)
+    axios.get(urlHomes)
       .then(response => {
         this.setState({data: response.data})
       })
