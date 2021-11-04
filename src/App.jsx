@@ -5,7 +5,6 @@ import Header from "./components/header/header/header";
 import axios from "axios";
 
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,10 +43,10 @@ class App extends React.Component {
   }
 
   plusCountAvailable = () => this.setState({countAvailable: this.state.countAvailable + 1});
-  minusCountAvailable = () => this.setState({countAvailable: this.state.countAvailable - 1 });
+  minusCountAvailable = () => this.setState({countAvailable: this.state.countAvailable - 1});
 
   plusCountHomes = () => this.setState({countHomes: this.state.countHomes + 1});
-  minusCountHomes = () => this.setState({countHomes: this.state.countHomes - 1 });
+  minusCountHomes = () => this.setState({countHomes: this.state.countHomes - 1});
 
   componentDidMount() {
     axios.get(this.homes)
