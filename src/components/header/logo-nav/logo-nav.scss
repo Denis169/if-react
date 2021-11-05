@@ -1,0 +1,62 @@
+@import "../../../styles/variable";
+
+.header {
+  &__logo-nav {
+    padding-top: 51px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logo {
+
+  }
+
+  &__header__svg-logo {
+    width: 205px;
+    height: 40px;
+  }
+
+  &__nav {
+    width: 343px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__nav-stays {
+    position: relative;
+  }
+
+  &__nav-attractions,
+  &__nav-stays {
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: $white;
+    text-decoration: none;
+  }
+
+  &__nav-night {
+    display: block;
+    padding-left: 24px;
+  }
+
+  &__svg-night {
+    width: 30px;
+    height: 30px;
+  }
+
+  &__nav-account {
+    display: block;
+  }
+
+  &__svg-account {
+    width: 40px;
+    height: 40px;
+    fill: $white;
+  }
+
+}
