@@ -1,13 +1,13 @@
-import React from "react";
-import arrowSlider from '../../../assets/image/arrow-slider.svg'
-import './arrow-left.scss'
+import React from 'react';
 
-const ArrowLeft = ({left, classArrow}) => {
-  return (
-    <div className={"homes__svg_arrow-left" + classArrow} id="homes-arrow-left" onClick={left}>
-      <img className={classArrow} src={arrowSlider} alt="right"/>
-    </div>
-  )
-}
+import arrowSlider from '../../../assets/image/arrow-slider.svg';
+
+import './arrow-left.scss';
+
+const ArrowLeft = ({ left, classArrow }) => (
+  <div role="button" tabIndex={0} className={`homes__svg_arrow-left${classArrow}`} onClick={left} onKeyDown={left}>
+    <img className={classArrow} src={arrowSlider} alt="right" />
+  </div>
+);
 
 export default ArrowLeft;

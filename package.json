@@ -3,37 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "webpack-dev-server --config configs/webpack.dev.js",
     "build": "webpack --config configs/webpack.prod.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "eslint --fix ./src --ext .js,.jsx",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
     ]
   },
   "browserslist": {
@@ -49,6 +34,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.0",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-export-default-from": "^7.14.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.14.5",
@@ -60,9 +47,8 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.4.0",
-    "eslint": "^8.1.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.1",
