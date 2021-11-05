@@ -32,13 +32,21 @@ class App extends React.Component {
       });
   }
 
-  plusCountAvailable = () => this.setState({ countAvailable: this.state.countAvailable + 1 });
+  plusCountAvailable = () => this.setState(
+    (state) => ({ countAvailable: state.countAvailable + 1 }),
+  );
 
-  minusCountAvailable = () => this.setState({ countAvailable: this.state.countAvailable - 1 });
+  minusCountAvailable = () => this.setState(
+    (state) => ({ countAvailable: state.countAvailable - 1 }),
+  );
 
-  plusCountHomes = () => this.setState({ countHomes: this.state.countHomes + 1 });
+  plusCountHomes = () => this.setState(
+    (state) => ({ countHomes: state.countHomes + 1 }),
+  );
 
-  minusCountHomes = () => this.setState({ countHomes: this.state.countHomes - 1 });
+  minusCountHomes = () => this.setState(
+    (state) => ({ countHomes: state.countHomes - 1 }),
+  );
 
   searchChange = (event) => {
     this.setState({ search: event.target.value });

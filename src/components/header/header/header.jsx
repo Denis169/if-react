@@ -1,9 +1,10 @@
 import React from 'react';
+
 import Form from '../form/form';
 import Market from '../market/market';
+import LogoNav from '../logo-nav/logo-nav';
 
 import './header.scss';
-import LogoNav from '../logo-nav/logo-nav';
 
 const Header = ({ search, searchChange, addAvailable }) => (
 
