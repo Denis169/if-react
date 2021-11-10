@@ -43,51 +43,23 @@ const Filters = () => {
     }
   };
 
-  const plusAdults = (event) => {
-    if (currentAdults < filterCounts.adults.max) setAdults(currentAdults + 1);
-    if (currentAdults === filterCounts.adults.max - 1) setAdultsPlus('button-off');
-    if (currentAdults !== filterCounts.adults.min - 1) setAdultsMinus('');
-    event.stopPropagation();
-  };
-
-  const minusAdults = (event) => {
-    if (currentAdults > filterCounts.adults.min) setAdults(currentAdults - 1);
-    if (currentAdults === filterCounts.adults.min + 1) setAdultsMinus('button-off');
-    if (currentAdults !== filterCounts.adults.max - 1) setAdultsPlus('');
-    event.stopPropagation();
-  };
-
-  const plusChildren = (event) => {
-    if (currentChildren < filterCounts.children.max) setChildren(currentChildren + 1);
-    if (currentChildren === filterCounts.children.max - 1) setChildrenPlus('button-off');
-    if (currentChildren !== filterCounts.children.min - 1) {
-      setChildrenMinus('');
-      setAgeChildOff('header__filter-children-age');
+  const plus = (event, current, variant, setCurrent, setClassPlus, setClassMinus) => {
+    if (current < variant.max) setCurrent(current + 1);
+    if (current === variant.max - 1) setClassPlus('button-off');
+    if (current !== variant.min - 1) {
+      setClassMinus('');
+      variant.maximumAge && setAgeChildOff('header__filter-children-age');
     }
     event.stopPropagation();
   };
 
-  const minusChildren = (event) => {
-    if (currentChildren > filterCounts.children.min) setChildren(currentChildren - 1);
-    if (currentChildren === filterCounts.children.min + 1) {
-      setChildrenMinus('button-off');
-      setAgeChildOff('header__filter-children-age display-none');
+  const minus = (event, current, variant, setCurrent, setClassPlus, setClassMinus) => {
+    if (current > variant.min) setCurrent(current - 1);
+    if (current === variant.min + 1) {
+      setClassMinus('button-off');
+      variant.maximumAge && setAgeChildOff('header__filter-children-age display-none');
     }
-    if (currentChildren !== filterCounts.children.max - 1) setChildrenPlus('');
-    event.stopPropagation();
-  };
-
-  const plusRooms = (event) => {
-    if (currentRooms < filterCounts.rooms.max) setRooms(currentRooms + 1);
-    if (currentRooms === filterCounts.rooms.max - 1) setRoomsPlus('button-off');
-    if (currentRooms !== filterCounts.rooms.min - 1) setRoomsMinus('');
-    event.stopPropagation();
-  };
-
-  const minusRooms = (event) => {
-    if (currentRooms > filterCounts.rooms.min) setRooms(currentRooms - 1);
-    if (currentRooms === filterCounts.rooms.min + 1) setRoomsMinus('button-off');
-    if (currentRooms !== filterCounts.rooms.max - 1) setRoomsPlus('');
+    if (current !== variant.max - 1) setClassPlus('');
     event.stopPropagation();
   };
 
@@ -102,25 +74,103 @@ const Filters = () => {
           <div className="header__filter-adults">
             <p>Adults</p>
             <div className="header__filter-counter">
-              <button className={adultsMinus} type="button" onClick={minusAdults}>&ndash;</button>
-              <p className="header__adults__quantity__js">{currentAdults}</p>
-              <button className={adultsPlus} type="button" onClick={plusAdults}>&#43;</button>
+              <button
+                className={adultsMinus}
+                type="button"
+                onClick={(event) => minus(
+                  event,
+                  currentAdults,
+                  filterCounts.adults,
+                  setAdults,
+                  setAdultsPlus,
+                  setAdultsMinus,
+                )}
+              >
+                &ndash;
+              </button>
+              <p>{currentAdults}</p>
+              <button
+                className={adultsPlus}
+                type="button"
+                onClick={(event) => plus(
+                  event,
+                  currentAdults,
+                  filterCounts.adults,
+                  setAdults,
+                  setAdultsPlus,
+                  setAdultsMinus,
+                )}
+              >
+                &#43;
+              </button>
             </div>
           </div>
           <div className="header__filter-children">
             <p>Children</p>
             <div className="header__filter-counter">
-              <button className={childrenMinus} type="button" onClick={minusChildren}>&ndash;</button>
+              <button
+                className={childrenMinus}
+                type="button"
+                onClick={(event) => minus(
+                  event,
+                  currentChildren,
+                  filterCounts.children,
+                  setChildren,
+                  setChildrenPlus,
+                  setChildrenMinus,
+                )}
+              >
+                &ndash;
+              </button>
               <p>{currentChildren}</p>
-              <button className={childrenPlus} type="button" onClick={plusChildren}>&#43;</button>
+              <button
+                className={childrenPlus}
+                type="button"
+                onClick={(event) => plus(
+                  event,
+                  currentChildren,
+                  filterCounts.children,
+                  setChildren,
+                  setChildrenPlus,
+                  setChildrenMinus,
+                )}
+              >
+                &#43;
+              </button>
             </div>
           </div>
           <div className="header__filter-room">
             <p>Room</p>
             <div className="header__filter-counter">
-              <button className={roomsMinus} type="button" onClick={minusRooms}>&ndash;</button>
+              <button
+                className={roomsMinus}
+                type="button"
+                onClick={(event) => minus(
+                  event,
+                  currentRooms,
+                  filterCounts.rooms,
+                  setRooms,
+                  setRoomsPlus,
+                  setRoomsMinus,
+                )}
+              >
+                &ndash;
+              </button>
               <p>{currentRooms}</p>
-              <button className={roomsPlus} type="button" onClick={plusRooms}>&#43;</button>
+              <button
+                className={roomsPlus}
+                type="button"
+                onClick={(event) => plus(
+                  event,
+                  currentRooms,
+                  filterCounts.rooms,
+                  setRooms,
+                  setRoomsPlus,
+                  setRoomsMinus,
+                )}
+              >
+                &#43;
+              </button>
             </div>
           </div>
         </div>
@@ -132,7 +182,12 @@ const Filters = () => {
             {' '}
             travelling with?
           </p>
-          {[...Array(currentChildren)].map((item, i) => <SelectAge key={i.toString()} />)}
+          {[...Array(currentChildren)].map((item, i) => (
+            <SelectAge
+              name={i.toString()}
+              key={i.toString()}
+            />
+          ))}
         </div>
       </div>
     </button>
