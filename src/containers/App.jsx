@@ -38,6 +38,7 @@ const App = () => {
   const searchChange = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
+    event.stopPropagation();
   };
 
   const addAvailable = (event) => {
@@ -56,6 +57,7 @@ const App = () => {
       .catch((error) => {
         console.log('error', error);
       });
+    event.stopPropagation();
   };
 
   return (
