@@ -1,0 +1,66 @@
+@import "../../../styles/variable";
+
+.header{
+  &__filter-component{
+    position: absolute;
+    background-color: $white;
+    width: 22%;
+    border-radius: 8px;
+    right: 190px;
+    top: 75px;
+  }
+  &__filter-counters{
+    height: 114px;
+    margin: 22px;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+  }
+  &__filter-adults,
+  &__filter-children,
+  &__filter-room{
+    display: flex;
+    justify-content: space-between;
+    & p{
+      font-size: 16px;
+      line-height: 30px;
+      vertical-align: middle;
+    }
+  }
+  &__filter-counter{
+    display: flex;
+    justify-content: space-between;
+    width: 108px;
+    & button{
+      border: 1px solid $primary;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      line-height: 25px;
+      color: $primary;
+      text-align: center;
+      cursor: pointer;
+      background-color: $white;
+    }
+    & .button-off {
+      border: 1px solid $secondary-text;
+      color: $secondary-text;
+    }
+  }
+  &__filter-people{
+    position: absolute;
+    width: 82%;
+    top: 75px;
+    right: 0;
+    border-radius: 8px;
+    background-color: $white;
+  }
+  &__filter-children-age{
+    margin: 28px 22px 22px 19px;
+    text-align: left;
+    & p{
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+}

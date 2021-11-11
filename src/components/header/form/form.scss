@@ -33,6 +33,7 @@
     display: flex;
     justify-content: center;
     margin: 145px 0 120px 0;
+    position: relative;
   }
   &__input-place-block {
     flex-basis: 39%;
@@ -56,10 +57,6 @@
   }
   &__input-date-block {
     flex-basis: 21%;
-    position: relative;
-  }
-  &__input-adults-block {
-    flex-basis: 26%;
     position: relative;
   }
   &__input {
