@@ -29,7 +29,7 @@ const App = () => {
       .catch((error) => {
         console.log('error', error);
       });
-  }, [data]);
+  }, []);
 
   const plusCountAvailable = () => setCountAvailable(countAvailable + 1);
 
