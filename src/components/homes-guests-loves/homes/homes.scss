@@ -4,6 +4,10 @@
   @extend %container
 }
 
+a:-webkit-any-link {
+  text-decoration: none;
+}
+
 .homes {
   background-color: $background-gray;
   &__caption{
@@ -24,9 +28,11 @@
     transform: translate(-50%);
   }
   &__section-col {
-    display: flex;
-    justify-content:center;
-    position: relative;
+    & nav{
+      display: flex;
+      justify-content:center;
+      position: relative;
+    }
   }
   &__no-display{
     display: none;

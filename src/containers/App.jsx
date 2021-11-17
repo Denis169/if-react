@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
 
 import { urlHomes, urlAvailable } from '../constants/urls';
 
 import Homes from '../components/homes-guests-loves/homes/homes';
 import Header from '../components/header/header/header';
+import Footer from '../components/footer/footer';
+import ChosenHotel from '../components/chosen-hotel/chosenHotel';
 
 import '../styles/index.scss';
 
@@ -21,11 +24,12 @@ const App = () => {
     axios.get(urlHomes)
       .then((response) => {
         setData([...response.data]);
+        console.log(data);
       })
       .catch((error) => {
         console.log('error', error);
       });
-  }, []);
+  }, [data]);
 
   const plusCountAvailable = () => setCountAvailable(countAvailable + 1);
 
@@ -63,24 +67,38 @@ const App = () => {
   return (
     <div>
       <Header search={search} searchChange={searchChange} addAvailable={addAvailable} />
-      {available && (
-        <Homes
-          data={availableData}
-          classArrow={classArrow}
-          count={countAvailable}
-          plus={plusCountAvailable}
-          minus={minusCountAvailable}
-          nameBlock="Available hotels"
+      <Routes>
+        <Route
+          path="/"
+          element={(
+            <>
+              {available && (
+              <Homes
+                data={availableData}
+                classArrow={classArrow}
+                count={countAvailable}
+                plus={plusCountAvailable}
+                minus={minusCountAvailable}
+                nameBlock="Available hotels"
+              />
+              )}
+              <Homes
+                data={data}
+                classArrow=""
+                count={countHomes}
+                plus={plusCountHomes}
+                minus={minusCountHomes}
+                nameBlock="Homes guests loves"
+              />
+            </>
+        )}
         />
-      )}
-      <Homes
-        data={data}
-        classArrow=""
-        count={countHomes}
-        plus={plusCountHomes}
-        minus={minusCountHomes}
-        nameBlock="Homes guests loves"
-      />
+        <Route
+          path="/hotels/:hotelID"
+          element={<ChosenHotel />}
+        />
+      </Routes>
+      <Footer />
     </div>
   );
 };

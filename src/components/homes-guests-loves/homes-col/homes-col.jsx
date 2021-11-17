@@ -7,7 +7,7 @@ const HomesCol = ({
 }) => (
   <div className="homes__col">
     <img className="homes__images" src={imageUrl} alt="Hotel" />
-    <a className="homes__link" href="https://intellectfox.by/">{name}</a>
+    <p className="homes__link">{name}</p>
     <p className="homes__text">
       {city}
       ,
