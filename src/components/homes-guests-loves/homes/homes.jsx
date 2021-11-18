@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import HomesCol from '../homes-col/homes-col';
 import ArrowRight from '../../Svg/arrow-right/arrow-right';
@@ -40,15 +41,18 @@ const Homes = ({
         <div className="homes__section">
           <div className="homes__section-col" id="homes__section-col">
             {data.length === 0 && 'Match not found, try setting other search options!'}
-            {data.filter((place, i) => i >= count && i <= count + 3).map((place) => (
-              <HomesCol
-                name={place.name}
-                imageUrl={place.imageUrl}
-                city={place.city}
-                country={place.country}
-                key={place.id}
-              />
-            ))}
+            <nav>
+              {data.filter((place, i) => i >= count && i <= count + 3).map((place) => (
+                <Link to={`/hotels/${place.id}`} key={place.id}>
+                  <HomesCol
+                    name={place.name}
+                    imageUrl={place.imageUrl}
+                    city={place.city}
+                    country={place.country}
+                  />
+                </Link>
+              ))}
+            </nav>
           </div>
           {styleRight && <ArrowRight right={clickRight} classArrow={classArrow} key={19} />}
           {styleLeft && <ArrowLeft classArrow={classArrow} left={clickLeft} key={20} />}
