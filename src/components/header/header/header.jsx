@@ -6,11 +6,13 @@ import LogoNav from '../logo-nav/logo-nav';
 
 import './header.scss';
 
-const Header = ({ search, searchChange, addAvailable }) => (
+const Header = ({
+  search, searchChange, addAvailable, nullPassword,
+}) => (
 
   <header>
     <div className="container">
-      <LogoNav />
+      <LogoNav nullPassword={nullPassword} />
       <div className="header__top-section">
         <h1>
           Discover stays

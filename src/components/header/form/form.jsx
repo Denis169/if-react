@@ -5,7 +5,7 @@ import Filters from '../filters/filters';
 import './form.scss';
 
 const Form = ({ search, searchChange, addAvailable }) => (
-  <form className="header__form" id="form-destination" onSubmit={addAvailable}>
+  <form className="header__form" onSubmit={addAvailable}>
     <div className="header__input-place-block">
       <label className="header__input input__place" htmlFor="place">
         Your destination or hotel name:

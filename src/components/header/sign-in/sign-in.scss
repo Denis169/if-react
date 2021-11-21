@@ -1,0 +1,52 @@
+@import "../../../styles/variable";
+
+.signIn {
+  &__block {
+    width: 364px;
+    height: 370px;
+    background-color: $white ;
+    margin: 183px auto 268px auto;
+  }
+  &__title {
+    margin: 36px auto 36px auto;
+    padding-top: 36px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+  }
+  &__email-label,
+  &__password-label {
+    position: relative;
+    display: block;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    color: $secondary-text ;
+    margin-left: 40px;
+    margin-bottom: 70px;
+  }
+  &__email,
+  &__password {
+    position: absolute;
+    width: 284px;
+    height: 41px;
+    bottom: -50px;
+    left: 0;
+    border: 2px solid $secondary-text;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+  &__button {
+    background-color: $primary;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 100%;
+    color: $white;
+    cursor: pointer;
+    width: 284px;
+    height: 48px;
+    margin-left: 40px;
+    border-radius: 8px;
+  }
+}
