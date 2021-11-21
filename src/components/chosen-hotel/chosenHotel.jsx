@@ -9,11 +9,10 @@ import { urlChose } from '../../constants/urls';
 import './chosenHotel.scss';
 
 const ChosenHotel = () => {
-  const [data, setData] = useState({});
   const params = useParams();
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    console.log(urlChose + params.hotelID);
     axios.get(urlChose + params.hotelID)
       .then((response) => {
         setData({ ...response.data });
@@ -21,7 +20,7 @@ const ChosenHotel = () => {
       .catch((error) => {
         console.log('error', error);
       });
-  }, [params.hotelID]);
+  }, []);
 
   return (
     <div className="chosen-hotel">

@@ -1,5 +1,13 @@
 @import "../../../styles/variable";
 
+.yellow {
+  fill: $secondary;
+}
+
+.white {
+  fill: $white;
+}
+
 .header {
   &__logo-nav {
     padding-top: 51px;
@@ -21,6 +29,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
 
   &__nav-stays {
@@ -54,9 +63,8 @@
   }
 
   &__svg-account {
+    cursor: pointer;
     width: 40px;
     height: 40px;
-    fill: $white;
   }
-
 }

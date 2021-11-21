@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { urlHomes, urlAvailable } from '../constants/urls';
 
@@ -8,10 +8,13 @@ import Homes from '../components/homes-guests-loves/homes/homes';
 import Header from '../components/header/header/header';
 import Footer from '../components/footer/footer';
 import ChosenHotel from '../components/chosen-hotel/chosenHotel';
+import Authorization from '../components/header/authorization/authorization';
+import Sprites from '../components/Svg/Sprites';
 
 import '../styles/index.scss';
 
 const App = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [available, setAvailable] = useState(false);
   const [availableData, setAvailableData] = useState([]);
@@ -19,17 +22,33 @@ const App = () => {
   const [classArrow, setClassArrow] = useState('');
   const [countAvailable, setCountAvailable] = useState(0);
   const [countHomes, setCountHomes] = useState(0);
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authorization, setAuthorization] = useState(false);
 
   useEffect(() => {
-    axios.get(urlHomes)
-      .then((response) => {
-        setData([...response.data]);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  }, []);
+    if (localStorage.getItem('mail') === null) {
+      localStorage.setItem('mail', '758@gmail.com');
+      localStorage.setItem('password', '1234');
+    }
+
+    if (sessionStorage.getItem('data') === null) {
+      axios.get(urlHomes)
+        .then((response) => {
+          sessionStorage.setItem('data', JSON.stringify([...response.data]));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    }
+    setData(JSON.parse(sessionStorage.getItem('data')));
+
+    if (!authorization) {
+      navigate('/authorization');
+    } else {
+      navigate('/');
+    }
+  }, [authorization]);
 
   const plusCountAvailable = () => setCountAvailable(countAvailable + 1);
 
@@ -39,10 +58,28 @@ const App = () => {
 
   const minusCountHomes = () => setCountHomes(countHomes - 1);
 
-  const searchChange = (event) => {
+  const nullPassword = (event) => {
     event.preventDefault();
+    setAuthorization(false);
+  };
+
+  const signIn = (event) => {
+    event.preventDefault();
+    (localStorage.getItem('mail') === mail && localStorage.getItem('password') === password) && setAuthorization(true);
+  };
+
+  const mailChange = (event) => {
+    event.preventDefault();
+    setMail(event.target.value);
+  };
+
+  const passwordChange = (event) => {
+    event.preventDefault();
+    setPassword(event.target.value);
+  };
+
+  const searchChange = (event) => {
     setSearch(event.target.value);
-    event.stopPropagation();
   };
 
   const addAvailable = (event) => {
@@ -61,17 +98,34 @@ const App = () => {
       .catch((error) => {
         console.log('error', error);
       });
-    event.stopPropagation();
   };
 
   return (
     <div>
-      <Header search={search} searchChange={searchChange} addAvailable={addAvailable} />
+      <Sprites />
       <Routes>
+        <Route
+          path="/:authorization"
+          element={(
+            <Authorization
+              mailChange={mailChange}
+              passwordChange={passwordChange}
+              mail={mail}
+              password={password}
+              signIn={signIn}
+            />
+          )}
+        />
         <Route
           path="/"
           element={(
             <>
+              <Header
+                search={search}
+                searchChange={searchChange}
+                addAvailable={addAvailable}
+                nullPassword={nullPassword}
+              />
               {available && (
               <Homes
                 data={availableData}
@@ -95,7 +149,17 @@ const App = () => {
         />
         <Route
           path="/hotels/:hotelID"
-          element={<ChosenHotel />}
+          element={(
+            <>
+              <Header
+                search={search}
+                searchChange={searchChange}
+                addAvailable={addAvailable}
+                nullPassword={nullPassword}
+              />
+              <ChosenHotel />
+            </>
+          )}
         />
       </Routes>
       <Footer />
