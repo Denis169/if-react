@@ -1,16 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import SelectAge from '../select-age-child/selectAge';
+
+import {
+  currentAdultsActionCreator,
+  currentChildrenActionCreator,
+  currentRoomsActionCreator,
+} from '../../../actionCreators';
 
 import './filter-counter.scss';
 
 const FilterCounter = ({
   currentAdults,
-  setAdults,
+  setCurrentAdults,
   currentChildren,
-  setChildren,
+  setCurrentChildren,
   currentRooms,
-  setRooms,
+  setCurrentRooms,
 }) => {
   const filterCounts = {
     adults: {
@@ -28,14 +35,12 @@ const FilterCounter = ({
     },
   };
 
-  const plus = (event, current, variant, setCurrent) => {
-    if (current < variant.max) setCurrent(current + 1);
-    event.stopPropagation();
+  const plus = (current, variant, seCurrent) => {
+    if (current < variant.max) seCurrent(current + 1);
   };
 
-  const minus = (event, current, variant, setCurrent) => {
-    if (current > variant.min) setCurrent(current - 1);
-    event.stopPropagation();
+  const minus = (current, variant, seCurrent) => {
+    if (current > variant.min) seCurrent(current - 1);
   };
 
   return (
@@ -47,11 +52,10 @@ const FilterCounter = ({
             <button
               className={currentAdults === filterCounts.adults.min ? 'button-off' : ''}
               type="button"
-              onClick={(event) => minus(
-                event,
+              onClick={() => minus(
                 currentAdults,
                 filterCounts.adults,
-                setAdults,
+                setCurrentAdults,
               )}
             >
               &ndash;
@@ -60,11 +64,10 @@ const FilterCounter = ({
             <button
               className={currentAdults === filterCounts.adults.max ? 'button-off' : ''}
               type="button"
-              onClick={(event) => plus(
-                event,
+              onClick={() => plus(
                 currentAdults,
                 filterCounts.adults,
-                setAdults,
+                setCurrentAdults,
               )}
             >
               &#43;
@@ -77,11 +80,10 @@ const FilterCounter = ({
             <button
               className={currentChildren === filterCounts.children.min ? 'button-off' : ''}
               type="button"
-              onClick={(event) => minus(
-                event,
+              onClick={() => minus(
                 currentChildren,
                 filterCounts.children,
-                setChildren,
+                setCurrentChildren,
               )}
             >
               &ndash;
@@ -90,11 +92,10 @@ const FilterCounter = ({
             <button
               className={currentChildren === filterCounts.children.max ? 'button-off' : ''}
               type="button"
-              onClick={(event) => plus(
-                event,
+              onClick={() => plus(
                 currentChildren,
                 filterCounts.children,
-                setChildren,
+                setCurrentChildren,
               )}
             >
               &#43;
@@ -107,11 +108,10 @@ const FilterCounter = ({
             <button
               className={currentRooms === filterCounts.rooms.min ? 'button-off' : ''}
               type="button"
-              onClick={(event) => minus(
-                event,
+              onClick={() => minus(
                 currentRooms,
                 filterCounts.rooms,
-                setRooms,
+                setCurrentRooms,
               )}
             >
               &ndash;
@@ -120,11 +120,10 @@ const FilterCounter = ({
             <button
               className={currentRooms === filterCounts.rooms.max ? 'button-off' : ''}
               type="button"
-              onClick={(event) => plus(
-                event,
+              onClick={() => plus(
                 currentRooms,
                 filterCounts.rooms,
-                setRooms,
+                setCurrentRooms,
               )}
             >
               &#43;
@@ -154,4 +153,16 @@ const FilterCounter = ({
   );
 };
 
-export default FilterCounter;
+const mapStateToProps = (state) => ({
+  currentAdults: state.filters.currentAdults,
+  currentChildren: state.filters.currentChildren,
+  currentRooms: state.filters.currentRooms,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentAdults: (value) => dispatch(currentAdultsActionCreator(value)),
+  setCurrentChildren: (value) => dispatch(currentChildrenActionCreator(value)),
+  setCurrentRooms: (value) => dispatch(currentRoomsActionCreator(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterCounter);

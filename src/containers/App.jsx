@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-
-import { urlHomes, urlAvailable } from '../constants/urls';
+import { connect } from 'react-redux';
 
 import Homes from '../components/homes-guests-loves/homes/homes';
 import Header from '../components/header/header/header';
@@ -11,37 +9,33 @@ import ChosenHotel from '../components/chosen-hotel/chosenHotel';
 import Authorization from '../components/header/authorization/authorization';
 import Sprites from '../components/Svg/Sprites';
 
+import {
+  countHomesActionCreator,
+  decrementCountAvailableActionCreator,
+  incrementCountAvailableActionCreator,
+} from '../actionCreators';
+
 import '../styles/index.scss';
 
-const App = () => {
+const App = ({
+  authorization,
+  availableData,
+  available,
+  countAvailable,
+  plusCountAvailable,
+  minusCountAvailable,
+  classArrow,
+  data,
+  countHomes,
+  setCountHomes,
+}) => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
-  const [available, setAvailable] = useState(false);
-  const [availableData, setAvailableData] = useState([]);
-  const [data, setData] = useState([]);
-  const [classArrow, setClassArrow] = useState('');
-  const [countAvailable, setCountAvailable] = useState(0);
-  const [countHomes, setCountHomes] = useState(0);
-  const [mail, setMail] = useState('');
-  const [password, setPassword] = useState('');
-  const [authorization, setAuthorization] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('mail') === null) {
       localStorage.setItem('mail', '758@gmail.com');
       localStorage.setItem('password', '1234');
     }
-
-    if (sessionStorage.getItem('data') === null) {
-      axios.get(urlHomes)
-        .then((response) => {
-          sessionStorage.setItem('data', JSON.stringify([...response.data]));
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
-    }
-    setData(JSON.parse(sessionStorage.getItem('data')));
 
     if (!authorization) {
       navigate('/authorization');
@@ -50,82 +44,20 @@ const App = () => {
     }
   }, [authorization]);
 
-  const plusCountAvailable = () => setCountAvailable(countAvailable + 1);
-
-  const minusCountAvailable = () => setCountAvailable(countAvailable - 1);
-
   const plusCountHomes = () => setCountHomes(countHomes + 1);
 
   const minusCountHomes = () => setCountHomes(countHomes - 1);
-
-  const nullPassword = (event) => {
-    event.preventDefault();
-    setAuthorization(false);
-  };
-
-  const signIn = (event) => {
-    event.preventDefault();
-    (localStorage.getItem('mail') === mail && localStorage.getItem('password') === password) && setAuthorization(true);
-  };
-
-  const mailChange = (event) => {
-    event.preventDefault();
-    setMail(event.target.value);
-  };
-
-  const passwordChange = (event) => {
-    event.preventDefault();
-    setPassword(event.target.value);
-  };
-
-  const searchChange = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const addAvailable = (event) => {
-    event.preventDefault();
-
-    search && setAvailable(true);
-
-    axios.get(urlAvailable + search)
-      .then((response) => {
-        setAvailableData([...response.data]);
-        setCountAvailable(0);
-
-        response.data.length < 5 && setClassArrow('homes__display-none');
-        response.data.length > 4 && setClassArrow('');
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
 
   return (
     <div>
       <Sprites />
       <Routes>
-        <Route
-          path="/:authorization"
-          element={(
-            <Authorization
-              mailChange={mailChange}
-              passwordChange={passwordChange}
-              mail={mail}
-              password={password}
-              signIn={signIn}
-            />
-          )}
-        />
+        <Route path="/:authorization" element={(<Authorization />)} />
         <Route
           path="/"
           element={(
             <>
-              <Header
-                search={search}
-                searchChange={searchChange}
-                addAvailable={addAvailable}
-                nullPassword={nullPassword}
-              />
+              <Header />
               {available && (
               <Homes
                 data={availableData}
@@ -151,12 +83,7 @@ const App = () => {
           path="/hotels/:hotelID"
           element={(
             <>
-              <Header
-                search={search}
-                searchChange={searchChange}
-                addAvailable={addAvailable}
-                nullPassword={nullPassword}
-              />
+              <Header />
               <ChosenHotel />
             </>
           )}
@@ -167,4 +94,20 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorization: state.authorisation.authorization,
+  availableData: state.form.availableData,
+  available: state.form.available,
+  countAvailable: state.form.countAvailable,
+  classArrow: state.form.classArrow,
+  data: state.homes.data,
+  countHomes: state.homes.countHomes,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  plusCountAvailable: (value) => dispatch(incrementCountAvailableActionCreator(value)),
+  minusCountAvailable: (value) => dispatch(decrementCountAvailableActionCreator(value)),
+  setCountHomes: (value) => dispatch(countHomesActionCreator(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
