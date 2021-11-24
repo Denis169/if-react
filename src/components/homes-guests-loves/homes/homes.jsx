@@ -1,37 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import HomesCol from '../homes-col/homes-col';
 import ArrowRight from '../../Svg/arrow-right/arrow-right';
 import ArrowLeft from '../../Svg/arrow-left/arrow-left';
 
+import {
+  arrowLeftActionCreator,
+  arrowRightActionCreator,
+} from '../../../actionCreators';
+
 import './homes.scss';
 
 const Homes = ({
-  count, data, plus, minus, nameBlock, classArrow,
-}) => {
-  const [styleLeft, setLeft] = useState(false);
-  const [styleRight, setRight] = useState(true);
+  count,
+  data,
+  plus,
+  minus,
+  nameBlock,
+  classArrow,
+  arrowRight,
+  arrowLeft,
+  setArrowRight,
+  setArrowLeft,
 
+}) => {
   useEffect(() => {
-    if (styleLeft && count < 1) {
-      setLeft(false);
-      setRight(true);
+    if (arrowLeft && count < 1) {
+      setArrowLeft(false);
+      setArrowRight(true);
     }
-  }, [styleLeft, count]);
+  }, [arrowLeft, count]);
 
   const clickRight = (event) => {
     event.preventDefault();
-    count < data.length - 4 && plus(count);
-    count > -1 && setLeft(true);
-    count === data.length - 5 && setRight(false);
+    plus(count);
+    count > -1 && setArrowLeft(true);
+    count === data.length - 5 && setArrowRight(false);
   };
 
   const clickLeft = (event) => {
     event.preventDefault();
-    count > 0 && minus(count);
-    count <= 1 && setLeft(false);
-    count === data.length - 4 && setRight(true);
+    minus(count);
+    count <= 1 && setArrowLeft(false);
+    count === data.length - 4 && setArrowRight(true);
   };
 
   return (
@@ -54,12 +67,22 @@ const Homes = ({
               ))}
             </nav>
           </div>
-          {styleRight && <ArrowRight right={clickRight} classArrow={classArrow} key={19} />}
-          {styleLeft && <ArrowLeft classArrow={classArrow} left={clickLeft} key={20} />}
+          {arrowRight && <ArrowRight right={clickRight} classArrow={classArrow} key={19} />}
+          {arrowLeft && <ArrowLeft classArrow={classArrow} left={clickLeft} key={20} />}
         </div>
       </div>
     </div>
   );
 };
 
-export default Homes;
+const mapStateToProps = (state) => ({
+  arrowRight: state.homes.arrowRight,
+  arrowLeft: state.homes.arrowLeft,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setArrowRight: (value) => dispatch(arrowRightActionCreator(value)),
+  setArrowLeft: (value) => dispatch(arrowLeftActionCreator(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homes);

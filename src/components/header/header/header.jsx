@@ -6,13 +6,11 @@ import LogoNav from '../logo-nav/logo-nav';
 
 import './header.scss';
 
-const Header = ({
-  search, searchChange, addAvailable, nullPassword,
-}) => (
+const Header = () => (
 
   <header>
     <div className="container">
-      <LogoNav nullPassword={nullPassword} />
+      <LogoNav />
       <div className="header__top-section">
         <h1>
           Discover stays
@@ -20,11 +18,7 @@ const Header = ({
           {' '}
           to live, work or just relax
         </h1>
-        <Form
-          search={search}
-          searchChange={searchChange}
-          addAvailable={addAvailable}
-        />
+        <Form />
       </div>
       <Market />
     </div>

@@ -5,19 +5,11 @@ import LogoNav from '../logo-nav/logo-nav';
 
 import './authorization.scss';
 
-const Authorization = ({
-  mailChange, passwordChange, mail, password, signIn,
-}) => (
+const Authorization = () => (
   <header>
     <div className="container">
       <LogoNav />
-      <SignIn
-        mailChange={mailChange}
-        passwordChange={passwordChange}
-        mail={mail}
-        password={password}
-        signIn={signIn}
-      />
+      <SignIn />
     </div>
   </header>
 );
