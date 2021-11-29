@@ -1,18 +1,16 @@
-import {
-  COLOR_ACCOUNT,
-} from '../constants';
+import { handleActions } from 'redux-actions';
+
+import { colorAccountActionCreator } from '../actionCreators';
 
 const initialState = {
   colorAccount: false,
 };
 
-function logoNavReducer(state = initialState, action) {
-  switch (action.type) {
-    case COLOR_ACCOUNT:
-      return { ...state, colorAccount: action.payload };
-    default:
-      return state;
-  }
-}
+const logoNavReducer = handleActions(
+  {
+    [colorAccountActionCreator]: (state, { payload }) => ({ ...state, colorAccount: payload }),
+  },
+  initialState,
+);
 
 export default logoNavReducer;

@@ -1,18 +1,12 @@
-import { combineReducers, createStore } from 'redux';
-import authorizationReducer from './reducers/authorizationRedusers';
-import formReducer from './reducers/formRedusers';
-import homesReducer from './reducers/homesRedusers';
-import filtersReducer from './reducers/filtersRedusers';
-import logoNavReducer from './reducers/logoNavRedusers';
+import { createStore } from 'redux';
+import { persistStore } from 'redux-persist';
 
-const reducers = combineReducers({
-  authorisation: authorizationReducer,
-  form: formReducer,
-  homes: homesReducer,
-  filters: filtersReducer,
-  logoNav: logoNavReducer,
-});
+import reducers from './reducers';
 
-const store = createStore(reducers);
+export const store = createStore(
+  reducers,
+  // eslint-disable-next-line no-underscore-dangle
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
-export default store;
+export const persistor = persistStore(store);

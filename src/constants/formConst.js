@@ -1,0 +1,5 @@
+export const INPUT_SEARCH = 'INPUT_SEARCH';
+export const ADD_AVAILABLE = 'ADD_AVAILABLE';
+export const AVAILABLE_DATA = 'AVAILABLE_DATA';
+export const SET_COUNT_AVAILABLE = 'SET_COUNT_AVAILABLE';
+export const ON_OF_ARROW = 'ON_OF_ARROW';

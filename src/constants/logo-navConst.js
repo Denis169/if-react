@@ -1,0 +1,3 @@
+const COLOR_ACCOUNT = 'COLOR_ACCOUNT';
+
+export default COLOR_ACCOUNT;

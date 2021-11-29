@@ -1,12 +1,12 @@
+import { handleActions } from 'redux-actions';
+
 import {
-  ADD_AVAILABLE,
-  AVAILABLE_DATA,
-  SET_COUNT_AVAILABLE,
-  DECREMENT_COUNT_AVAILABLE,
-  INCREMENT_COUNT_AVAILABLE,
-  INPUT_SEARCH,
-  ON_OF_ARROW,
-} from '../constants';
+  addAvailableActionCreator,
+  availableDataActionCreator,
+  classArrowActionCreator,
+  inputSearchActionCreator,
+  setCountAvailableActionCreator,
+} from '../actionCreators';
 
 const initialState = {
   search: '',
@@ -16,25 +16,15 @@ const initialState = {
   classArrow: '',
 };
 
-function formReducer(state = initialState, action) {
-  switch (action.type) {
-    case INPUT_SEARCH:
-      return { ...state, search: action.payload };
-    case ADD_AVAILABLE:
-      return { ...state, available: action.payload };
-    case AVAILABLE_DATA:
-      return { ...state, availableData: action.payload };
-    case INCREMENT_COUNT_AVAILABLE:
-      return { ...state, countAvailable: state.countAvailable + 1 };
-    case DECREMENT_COUNT_AVAILABLE:
-      return { ...state, countAvailable: state.countAvailable - 1 };
-    case SET_COUNT_AVAILABLE:
-      return { ...state, countAvailable: action.payload };
-    case ON_OF_ARROW:
-      return { ...state, classArrow: action.payload };
-    default:
-      return state;
-  }
-}
+const formReducer = handleActions(
+  {
+    [inputSearchActionCreator]: (state, { payload }) => ({ ...state, search: payload }),
+    [addAvailableActionCreator]: (state, { payload }) => ({ ...state, available: payload }),
+    [availableDataActionCreator]: (state, { payload }) => ({ ...state, availableData: payload }),
+    [setCountAvailableActionCreator]: (state, { payload }) => ({ ...state, countAvailable: payload }),
+    [classArrowActionCreator]: (state, { payload }) => ({ ...state, classArrow: payload }),
+  },
+  initialState,
+);
 
 export default formReducer;

@@ -1,0 +1,3 @@
+const DATA_CHOSEN_HOTEL = 'DATA_CHOSEN_HOTEL';
+
+export default DATA_CHOSEN_HOTEL;

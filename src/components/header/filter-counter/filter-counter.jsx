@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import SelectAge from '../select-age-child/selectAge';
 
@@ -11,17 +12,10 @@ import {
 
 import './filter-counter.scss';
 
-const FilterCounter = ({
-  currentAdults,
-  setCurrentAdults,
-  currentChildren,
-  setCurrentChildren,
-  currentRooms,
-  setCurrentRooms,
-}) => {
+const FilterCounter = () => {
   const filterCounts = {
     adults: {
-      min: 0,
+      min: 1,
       max: 30,
     },
     children: {
@@ -35,12 +29,18 @@ const FilterCounter = ({
     },
   };
 
+  const dispatch = useDispatch();
+
+  const currentAdults = useSelector(createSelector((state) => state.filters.currentAdults, (data) => data));
+  const currentChildren = useSelector(createSelector((state) => state.filters.currentChildren, (data) => data));
+  const currentRooms = useSelector(createSelector((state) => state.filters.currentRooms, (data) => data));
+
   const plus = (current, variant, seCurrent) => {
-    if (current < variant.max) seCurrent(current + 1);
+    if (current < variant.max) dispatch(seCurrent(current + 1));
   };
 
   const minus = (current, variant, seCurrent) => {
-    if (current > variant.min) seCurrent(current - 1);
+    if (current > variant.min) dispatch(seCurrent(current - 1));
   };
 
   return (
@@ -55,7 +55,7 @@ const FilterCounter = ({
               onClick={() => minus(
                 currentAdults,
                 filterCounts.adults,
-                setCurrentAdults,
+                currentAdultsActionCreator,
               )}
             >
               &ndash;
@@ -67,7 +67,7 @@ const FilterCounter = ({
               onClick={() => plus(
                 currentAdults,
                 filterCounts.adults,
-                setCurrentAdults,
+                currentAdultsActionCreator,
               )}
             >
               &#43;
@@ -83,7 +83,7 @@ const FilterCounter = ({
               onClick={() => minus(
                 currentChildren,
                 filterCounts.children,
-                setCurrentChildren,
+                currentChildrenActionCreator,
               )}
             >
               &ndash;
@@ -95,7 +95,7 @@ const FilterCounter = ({
               onClick={() => plus(
                 currentChildren,
                 filterCounts.children,
-                setCurrentChildren,
+                currentChildrenActionCreator,
               )}
             >
               &#43;
@@ -111,7 +111,7 @@ const FilterCounter = ({
               onClick={() => minus(
                 currentRooms,
                 filterCounts.rooms,
-                setCurrentRooms,
+                currentRoomsActionCreator,
               )}
             >
               &ndash;
@@ -123,7 +123,7 @@ const FilterCounter = ({
               onClick={() => plus(
                 currentRooms,
                 filterCounts.rooms,
-                setCurrentRooms,
+                currentRoomsActionCreator,
               )}
             >
               &#43;
@@ -153,16 +153,4 @@ const FilterCounter = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentAdults: state.filters.currentAdults,
-  currentChildren: state.filters.currentChildren,
-  currentRooms: state.filters.currentRooms,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentAdults: (value) => dispatch(currentAdultsActionCreator(value)),
-  setCurrentChildren: (value) => dispatch(currentChildrenActionCreator(value)),
-  setCurrentRooms: (value) => dispatch(currentRoomsActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterCounter);
+export default FilterCounter;
