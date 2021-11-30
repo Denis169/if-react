@@ -12,7 +12,7 @@ import chosenHotelReducer from './ChosenHotelRedusers';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['authorisation', 'homes', 'form', 'chosenHotel'],
+  // blacklist: ['authorisation', 'homes', 'form', 'chosenHotel'],
 };
 
 const reducers = combineReducers({

@@ -8,7 +8,7 @@ import HomesCol from '../homes-guests-loves/homes-col/homes-col';
 
 import { urlChose } from '../../constants/urls';
 
-import { dataChosenHotelActionCreator } from '../../actionCreators';
+import { dataChosenHotelActionCreator, navigationChosenHotelActionCreator } from '../../actionCreators';
 
 import './chosenHotel.scss';
 
@@ -18,6 +18,7 @@ const ChosenHotel = () => {
   const dataChosenHotel = useSelector(createSelector((state) => state.chosenHotel.dataChosenHotel, (dataArray) => dataArray));
 
   useEffect(() => {
+    dispatch(navigationChosenHotelActionCreator(true));
     axios.get(urlChose + params.hotelID)
       .then((response) => {
         dispatch(dataChosenHotelActionCreator({ ...response.data }));
@@ -26,6 +27,9 @@ const ChosenHotel = () => {
       .catch((error) => {
         console.log('error', error);
       });
+    return () => {
+      dispatch(navigationChosenHotelActionCreator(false));
+    };
   }, []);
 
   return (

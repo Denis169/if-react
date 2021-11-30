@@ -7,8 +7,11 @@ const source = path.resolve(__dirname, '../src');
 
 module.exports = merge(webpackConfigBase, {
 	mode: 'development',
+	output: {
+		publicPath: '/',
+	},
 	devServer: {
-		port: 8888,
+		port: 8889,
 		hot: true,
 		open: true,
 		historyApiFallback: true,

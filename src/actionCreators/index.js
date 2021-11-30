@@ -5,7 +5,7 @@ import { ADD_AVAILABLE, AVAILABLE_DATA, ON_OF_ARROW, INPUT_SEARCH, SET_COUNT_AVA
 import { DATA_HOMES, COUNT_HOMES } from '../constants/homesConst';
 import { SHOW_FILTERS, CURRENT_ADULTS, CURRENT_CHILDREN, CURRENT_ROOMS } from '../constants/filtersConst';
 import COLOR_ACCOUNT from '../constants/logo-navConst';
-import DATA_CHOSEN_HOTEL from '../constants/chosen-hotelConst';
+import { DATA_CHOSEN_HOTEL, NAVIGATE_CHOSEN_HOTEL } from '../constants/chosen-hotelConst';
 
 // Authorization
 
@@ -40,3 +40,4 @@ export const colorAccountActionCreator = createAction(COLOR_ACCOUNT);
 // Chosen-Hotel
 
 export const dataChosenHotelActionCreator = createAction(DATA_CHOSEN_HOTEL);
+export const navigationChosenHotelActionCreator = createAction(NAVIGATE_CHOSEN_HOTEL);
