@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
+import axios from 'axios';
+import { urlHomes } from '../constants/urls';
 
 import Homes from '../components/homes-guests-loves/homes/homes';
 import Header from '../components/header/header/header';
@@ -11,25 +14,24 @@ import Sprites from '../components/Svg/Sprites';
 
 import {
   countHomesActionCreator,
-  decrementCountAvailableActionCreator,
-  incrementCountAvailableActionCreator,
+  dataHomesActionCreator,
+  setCountAvailableActionCreator,
 } from '../actionCreators';
 
 import '../styles/index.scss';
 
-const App = ({
-  authorization,
-  availableData,
-  available,
-  countAvailable,
-  plusCountAvailable,
-  minusCountAvailable,
-  classArrow,
-  data,
-  countHomes,
-  setCountHomes,
-}) => {
+const App = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
+  const data = useSelector(createSelector((state) => state.homes.data, (dataArray) => dataArray));
+  const countHomes = useSelector(createSelector((state) => state.homes.countHomes, (dataArray) => dataArray));
+  const availableData = useSelector(createSelector((state) => state.form.availableData, (dataArray) => dataArray));
+  const available = useSelector(createSelector((state) => state.form.available, (dataArray) => dataArray));
+  const countAvailable = useSelector(createSelector((state) => state.form.countAvailable, (dataArray) => dataArray));
+  const classArrow = useSelector(createSelector((state) => state.form.classArrow, (dataArray) => dataArray));
+  const authorization = useSelector(createSelector((state) => state.authorisation.authorization, (dataArray) => dataArray));
+  const navigationChosenHotel = useSelector(createSelector((state) => state.chosenHotel.navigationChosenHotel, (dataArray) => dataArray));
 
   useEffect(() => {
     if (localStorage.getItem('mail') === null) {
@@ -37,16 +39,33 @@ const App = ({
       localStorage.setItem('password', '1234');
     }
 
+    if (sessionStorage.getItem('data') === null) {
+      axios.get(urlHomes)
+        .then((response) => {
+          sessionStorage.setItem('data', JSON.stringify([...response.data]));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    }
+    dispatch(dataHomesActionCreator(JSON.parse(sessionStorage.getItem('data'))));
+
     if (!authorization) {
       navigate('/authorization');
+    } else if (navigationChosenHotel) {
+      navigate(`/hotels/ + ${params.hotelID}`);
     } else {
       navigate('/');
     }
   }, [authorization]);
 
-  const plusCountHomes = () => setCountHomes(countHomes + 1);
+  const plusCountAvailable = () => dispatch(setCountAvailableActionCreator(countAvailable + 1));
 
-  const minusCountHomes = () => setCountHomes(countHomes - 1);
+  const minusCountAvailable = () => dispatch(setCountAvailableActionCreator(countAvailable - 1));
+
+  const plusCountHomes = () => dispatch(countHomesActionCreator(countHomes + 1));
+
+  const minusCountHomes = () => dispatch(countHomesActionCreator(countHomes - 1));
 
   return (
     <div>
@@ -94,20 +113,4 @@ const App = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  authorization: state.authorisation.authorization,
-  availableData: state.form.availableData,
-  available: state.form.available,
-  countAvailable: state.form.countAvailable,
-  classArrow: state.form.classArrow,
-  data: state.homes.data,
-  countHomes: state.homes.countHomes,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  plusCountAvailable: (value) => dispatch(incrementCountAvailableActionCreator(value)),
-  minusCountAvailable: (value) => dispatch(decrementCountAvailableActionCreator(value)),
-  setCountHomes: (value) => dispatch(countHomesActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

@@ -1,52 +1,35 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import {
   authorizationActionCreator,
-  dataHomesActionCreator,
   inputMailActionCreator,
   inputPasswordActionCreator,
 } from '../../../actionCreators';
 
-import { urlHomes } from '../../../constants/urls';
-
 import './sign-in.scss';
 
-const SignIn = ({
-  setMail,
-  setPassword,
-  mail,
-  password,
-  authorization,
-  setData,
-}) => {
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const password = useSelector(createSelector((state) => state.authorisation.password, (data) => data));
+  const mail = useSelector(createSelector((state) => state.authorisation.mail, (data) => data));
+
   const mailChange = (event) => {
     event.preventDefault();
-    setMail(event.target.value);
+    dispatch(inputMailActionCreator(event.target.value));
   };
 
   const passwordChange = (event) => {
     event.preventDefault();
-    setPassword(event.target.value);
+    dispatch(inputPasswordActionCreator(event.target.value));
   };
 
   const checkMailPass = (event) => {
     event.preventDefault();
     localStorage.getItem('mail') === mail
     && localStorage.getItem('password') === password
-    && authorization(true);
-
-    if (sessionStorage.getItem('data') === null) {
-      axios.get(urlHomes)
-        .then((response) => {
-          sessionStorage.setItem('data', JSON.stringify([...response.data]));
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
-    }
-    setData(JSON.parse(sessionStorage.getItem('data')));
+    && dispatch(authorizationActionCreator(true));
   };
 
   return (
@@ -82,16 +65,4 @@ const SignIn = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  mail: state.authorisation.mail,
-  password: state.authorisation.password,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setMail: (value) => dispatch(inputMailActionCreator(value)),
-  setPassword: (value) => dispatch(inputPasswordActionCreator(value)),
-  authorization: (value) => dispatch(authorizationActionCreator(value)),
-  setData: (value) => dispatch(dataHomesActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

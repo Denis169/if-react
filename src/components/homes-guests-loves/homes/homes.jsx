@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import HomesCol from '../homes-col/homes-col';
 import ArrowRight from '../../Svg/arrow-right/arrow-right';
 import ArrowLeft from '../../Svg/arrow-left/arrow-left';
-
-import {
-  arrowLeftActionCreator,
-  arrowRightActionCreator,
-} from '../../../actionCreators';
 
 import './homes.scss';
 
@@ -20,12 +14,10 @@ const Homes = ({
   minus,
   nameBlock,
   classArrow,
-  arrowRight,
-  arrowLeft,
-  setArrowRight,
-  setArrowLeft,
-
 }) => {
+  const [arrowRight, setArrowRight] = useState(true);
+  const [arrowLeft, setArrowLeft] = useState(false);
+
   useEffect(() => {
     if (arrowLeft && count < 1) {
       setArrowLeft(false);
@@ -75,14 +67,4 @@ const Homes = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  arrowRight: state.homes.arrowRight,
-  arrowLeft: state.homes.arrowLeft,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setArrowRight: (value) => dispatch(arrowRightActionCreator(value)),
-  setArrowLeft: (value) => dispatch(arrowLeftActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homes);
+export default Homes;

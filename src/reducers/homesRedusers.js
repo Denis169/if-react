@@ -1,28 +1,24 @@
-import {
-  ARROW_LEFT_HOMES,
-  ARROW_RIGHT_HOMES, COUNT_HOMES, DATA_HOMES,
-} from '../constants';
+import { handleActions } from 'redux-actions';
+
+import { countHomesActionCreator, dataHomesActionCreator } from '../actionCreators';
 
 const initialState = {
-  arrowRight: true,
-  arrowLeft: false,
-  data: [],
+  data: [{
+    city: '',
+    country: '',
+    id: '',
+    imageUrl: '',
+    name: '',
+  }],
   countHomes: 0,
 };
 
-function homesReducer(state = initialState, action) {
-  switch (action.type) {
-    case ARROW_RIGHT_HOMES:
-      return { ...state, arrowRight: action.payload };
-    case ARROW_LEFT_HOMES:
-      return { ...state, arrowLeft: action.payload };
-    case DATA_HOMES:
-      return { ...state, data: action.payload };
-    case COUNT_HOMES:
-      return { ...state, countHomes: action.payload };
-    default:
-      return state;
-  }
-}
+const homesReducer = handleActions(
+  {
+    [dataHomesActionCreator]: (state, { payload }) => ({ ...state, data: payload }),
+    [countHomesActionCreator]: (state, { payload }) => ({ ...state, countHomes: payload }),
+  },
+  initialState,
+);
 
 export default homesReducer;

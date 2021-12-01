@@ -1,123 +1,43 @@
-import {
-  ADD_AVAILABLE,
-  AUTHORIZATION,
-  AVAILABLE_DATA,
-  ON_OF_ARROW,
-  DECREMENT_COUNT_AVAILABLE,
-  INCREMENT_COUNT_AVAILABLE,
-  INPUT_MAIL,
-  INPUT_PASSWORD,
-  INPUT_SEARCH,
-  SET_COUNT_AVAILABLE,
-  ARROW_RIGHT_HOMES,
-  ARROW_LEFT_HOMES,
-  SHOW_FILTERS,
-  CURRENT_ADULTS,
-  CURRENT_CHILDREN,
-  CURRENT_ROOMS, COLOR_ACCOUNT, DATA_HOMES, COUNT_HOMES,
-} from '../constants';
+import { createAction } from 'redux-actions';
+
+import { INPUT_MAIL, INPUT_PASSWORD, AUTHORIZATION } from '../constants/autorizationConst';
+import { ADD_AVAILABLE, AVAILABLE_DATA, ON_OF_ARROW, INPUT_SEARCH, SET_COUNT_AVAILABLE } from '../constants/formConst';
+import { DATA_HOMES, COUNT_HOMES } from '../constants/homesConst';
+import { SHOW_FILTERS, CURRENT_ADULTS, CURRENT_CHILDREN, CURRENT_ROOMS } from '../constants/filtersConst';
+import COLOR_ACCOUNT from '../constants/logo-navConst';
+import { DATA_CHOSEN_HOTEL, NAVIGATE_CHOSEN_HOTEL } from '../constants/chosen-hotelConst';
 
 // Authorization
 
-export const inputMailActionCreator = (payload) => ({
-  type: INPUT_MAIL,
-  payload,
-});
-
-export const inputPasswordActionCreator = (payload) => ({
-  type: INPUT_PASSWORD,
-  payload,
-});
-
-export const authorizationActionCreator = (payload) => ({
-  type: AUTHORIZATION,
-  payload,
-});
+export const inputMailActionCreator = createAction(INPUT_MAIL);
+export const inputPasswordActionCreator = createAction(INPUT_PASSWORD);
+export const authorizationActionCreator = createAction(AUTHORIZATION);
 
 // Form
 
-export const inputSearchActionCreator = (payload) => ({
-  type: INPUT_SEARCH,
-  payload,
-});
-
-export const addAvailableActionCreator = (payload) => ({
-  type: ADD_AVAILABLE,
-  payload,
-});
-
-export const availableDataActionCreator = (payload) => ({
-  type: AVAILABLE_DATA,
-  payload,
-});
-
-export const incrementCountAvailableActionCreator = (payload) => ({
-  type: INCREMENT_COUNT_AVAILABLE,
-  payload,
-});
-
-export const decrementCountAvailableActionCreator = (payload) => ({
-  type: DECREMENT_COUNT_AVAILABLE,
-  payload,
-});
-
-export const setCountAvailableActionCreator = (payload) => ({
-  type: SET_COUNT_AVAILABLE,
-  payload,
-});
-
-export const classArrowActionCreator = (payload) => ({
-  type: ON_OF_ARROW,
-  payload,
-});
+export const inputSearchActionCreator = createAction(INPUT_SEARCH);
+export const addAvailableActionCreator = createAction(ADD_AVAILABLE);
+export const availableDataActionCreator = createAction(AVAILABLE_DATA);
+export const setCountAvailableActionCreator = createAction(SET_COUNT_AVAILABLE);
+export const classArrowActionCreator = createAction(ON_OF_ARROW);
 
 // Homes
 
-export const arrowRightActionCreator = (payload) => ({
-  type: ARROW_RIGHT_HOMES,
-  payload,
-});
-
-export const arrowLeftActionCreator = (payload) => ({
-  type: ARROW_LEFT_HOMES,
-  payload,
-});
-
-export const dataHomesActionCreator = (payload) => ({
-  type: DATA_HOMES,
-  payload,
-});
-
-export const countHomesActionCreator = (payload) => ({
-  type: COUNT_HOMES,
-  payload,
-});
+export const dataHomesActionCreator = createAction(DATA_HOMES);
+export const countHomesActionCreator = createAction(COUNT_HOMES);
 
 // Filters
 
-export const showFiltersActionCreator = (payload) => ({
-  type: SHOW_FILTERS,
-  payload,
-});
-
-export const currentAdultsActionCreator = (payload) => ({
-  type: CURRENT_ADULTS,
-  payload,
-});
-
-export const currentChildrenActionCreator = (payload) => ({
-  type: CURRENT_CHILDREN,
-  payload,
-});
-
-export const currentRoomsActionCreator = (payload) => ({
-  type: CURRENT_ROOMS,
-  payload,
-});
+export const showFiltersActionCreator = createAction(SHOW_FILTERS);
+export const currentAdultsActionCreator = createAction(CURRENT_ADULTS);
+export const currentChildrenActionCreator = createAction(CURRENT_CHILDREN);
+export const currentRoomsActionCreator = createAction(CURRENT_ROOMS);
 
 // Logo-nav
 
-export const colorAccountActionCreator = (payload) => ({
-  type: COLOR_ACCOUNT,
-  payload,
-});
+export const colorAccountActionCreator = createAction(COLOR_ACCOUNT);
+
+// Chosen-Hotel
+
+export const dataChosenHotelActionCreator = createAction(DATA_CHOSEN_HOTEL);
+export const navigationChosenHotelActionCreator = createAction(NAVIGATE_CHOSEN_HOTEL);

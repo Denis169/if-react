@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import FilterCounter from '../filter-counter/filter-counter';
 
@@ -7,15 +8,15 @@ import { showFiltersActionCreator } from '../../../actionCreators';
 
 import './filters.scss';
 
-const Filters = ({
-  show,
-  setShow,
-  currentAdults,
-  currentChildren,
-  currentRooms,
-}) => {
+const Filters = () => {
+  const dispatch = useDispatch();
+  const showFilters = useSelector(createSelector((state) => state.filters.showFilters, (data) => data));
+  const currentAdults = useSelector(createSelector((state) => state.filters.currentAdults, (data) => data));
+  const currentChildren = useSelector(createSelector((state) => state.filters.currentChildren, (data) => data));
+  const currentRooms = useSelector(createSelector((state) => state.filters.currentRooms, (data) => data));
+
   const showBlock = (event) => {
-    show ? setShow(false) : setShow(true);
+    showFilters ? dispatch(showFiltersActionCreator(false)) : dispatch(showFiltersActionCreator(true));
     event.stopPropagation();
   };
 
@@ -26,21 +27,9 @@ const Filters = ({
           { `${currentAdults} Adults - ${currentChildren} Children - ${currentRooms} Room`}
         </p>
       </button>
-      {show && <FilterCounter />}
+      {showFilters && <FilterCounter />}
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  show: state.filters.showFilters,
-  currentAdults: state.filters.currentAdults,
-  currentChildren: state.filters.currentChildren,
-  currentRooms: state.filters.currentRooms,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setShow: (value) => dispatch(showFiltersActionCreator(value)),
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default Filters;

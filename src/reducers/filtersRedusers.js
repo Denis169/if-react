@@ -1,9 +1,11 @@
+import { handleActions } from 'redux-actions';
+
 import {
-  CURRENT_ADULTS,
-  CURRENT_CHILDREN,
-  CURRENT_ROOMS,
-  SHOW_FILTERS,
-} from '../constants';
+  currentAdultsActionCreator,
+  currentChildrenActionCreator,
+  currentRoomsActionCreator,
+  showFiltersActionCreator,
+} from '../actionCreators';
 
 const initialState = {
   showFilters: false,
@@ -12,19 +14,14 @@ const initialState = {
   currentRooms: 1,
 };
 
-function filtersReducer(state = initialState, action) {
-  switch (action.type) {
-    case SHOW_FILTERS:
-      return { ...state, showFilters: action.payload };
-    case CURRENT_ADULTS:
-      return { ...state, currentAdults: action.payload };
-    case CURRENT_CHILDREN:
-      return { ...state, currentChildren: action.payload };
-    case CURRENT_ROOMS:
-      return { ...state, currentRooms: action.payload };
-    default:
-      return state;
-  }
-}
+const filtersReducer = handleActions(
+  {
+    [showFiltersActionCreator]: (state, { payload }) => ({ ...state, showFilters: payload }),
+    [currentAdultsActionCreator]: (state, { payload }) => ({ ...state, currentAdults: payload }),
+    [currentChildrenActionCreator]: (state, { payload }) => ({ ...state, currentChildren: payload }),
+    [currentRoomsActionCreator]: (state, { payload }) => ({ ...state, currentRooms: payload }),
+  },
+  initialState,
+);
 
 export default filtersReducer;

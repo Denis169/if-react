@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import Dropdown from '../dropdown/dropdown';
 
@@ -11,16 +12,19 @@ import night from '../../../assets/image/Night.svg';
 
 import './logo-nav.scss';
 
-const LogoNav = ({ colorAccount, setColorAccount }) => {
+const LogoNav = () => {
   const params = useParams();
+  const dispatch = useDispatch();
+
+  const colorAccount = useSelector(createSelector((state) => state.logoNav.colorAccount, (data) => data));
 
   useEffect(() => {
-    params.authorization === 'authorization' && setColorAccount(false);
+    params.authorization === 'authorization' && dispatch(colorAccountActionCreator(false));
   }, [colorAccount, params.authorization]);
 
   const addDropdown = (event) => {
     event.preventDefault();
-    colorAccount ? setColorAccount(false) : setColorAccount(true);
+    colorAccount ? dispatch(colorAccountActionCreator(false)) : dispatch(colorAccountActionCreator(true));
   };
 
   return (
@@ -50,12 +54,4 @@ const LogoNav = ({ colorAccount, setColorAccount }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  colorAccount: state.logoNav.colorAccount,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setColorAccount: (value) => dispatch(colorAccountActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LogoNav);
+export default LogoNav;

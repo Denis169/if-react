@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { createSelector } from 'reselect';
 
 import Filters from '../filters/filters';
 
@@ -16,31 +17,27 @@ import {
 
 import './form.scss';
 
-const Form = ({
-  search,
-  setSearch,
-  available,
-  availableData,
-  countAvailable,
-  classArrow,
-}) => {
+const Form = () => {
+  const dispatch = useDispatch();
+  const search = useSelector(createSelector((state) => state.form.search, (data) => data));
+
   const searchChange = (event) => {
     event.preventDefault();
-    setSearch(event.target.value);
+    dispatch(inputSearchActionCreator(event.target.value));
   };
 
   const addAvailable = (event) => {
     event.preventDefault();
 
-    search && available(true);
+    search && dispatch(addAvailableActionCreator(true));
 
     axios.get(urlAvailable + search)
       .then((response) => {
-        availableData([...response.data]);
-        countAvailable(0);
+        dispatch(availableDataActionCreator([...response.data]));
+        dispatch(setCountAvailableActionCreator(0));
 
-        response.data.length < 5 && classArrow('homes__display-none');
-        response.data.length > 4 && classArrow('');
+        response.data.length < 5 && dispatch(classArrowActionCreator('homes__display-none'));
+        response.data.length > 4 && dispatch(classArrowActionCreator(''));
       })
       .catch((error) => {
         console.log('error', error);
@@ -73,16 +70,4 @@ const Form = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  search: state.form.search,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setSearch: (value) => dispatch(inputSearchActionCreator(value)),
-  available: (value) => dispatch(addAvailableActionCreator(value)),
-  availableData: (value) => dispatch(availableDataActionCreator(value)),
-  countAvailable: (value) => dispatch(setCountAvailableActionCreator(value)),
-  classArrow: (value) => dispatch(classArrowActionCreator(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;
