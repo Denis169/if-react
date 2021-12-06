@@ -8,11 +8,12 @@ import homesReducer from './homesRedusers';
 import filtersReducer from './filtersRedusers';
 import logoNavReducer from './logoNavRedusers';
 import chosenHotelReducer from './ChosenHotelRedusers';
+import datepickerReducer from './datepickerRedusers';
 
 const persistConfig = {
   key: 'root',
   storage,
-  // blacklist: ['authorisation', 'homes', 'form', 'chosenHotel'],
+  // blacklist: ['authorisation', 'form'],
 };
 
 const reducers = combineReducers({
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   form: formReducer,
   homes: homesReducer,
   filters: filtersReducer,
+  datepicker: datepickerReducer,
   logoNav: logoNavReducer,
 });
 

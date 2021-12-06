@@ -1,18 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import { createSelector } from 'reselect';
 
 import Filters from '../filters/filters';
-
-import { urlAvailable } from '../../../constants/urls';
+import Datepicker from '../datepicker/datepicker';
 
 import {
   addAvailableActionCreator,
-  availableDataActionCreator,
-  classArrowActionCreator,
-  inputSearchActionCreator,
-  setCountAvailableActionCreator,
+  inputSearchActionCreator, requestFormActionCreator,
 } from '../../../actionCreators';
 
 import './form.scss';
@@ -20,6 +15,10 @@ import './form.scss';
 const Form = () => {
   const dispatch = useDispatch();
   const search = useSelector(createSelector((state) => state.form.search, (data) => data));
+  const startDate = useSelector(createSelector((state) => state.datepicker.dateStart, (dataArray) => dataArray));
+  const endDate = useSelector(createSelector((state) => state.datepicker.dateEnd, (dataArray) => dataArray));
+  const currentAdults = useSelector(createSelector((state) => state.filters.currentAdults, (data) => data));
+  const currentRooms = useSelector(createSelector((state) => state.filters.currentRooms, (data) => data));
 
   const searchChange = (event) => {
     event.preventDefault();
@@ -29,19 +28,13 @@ const Form = () => {
   const addAvailable = (event) => {
     event.preventDefault();
 
+    const formData = Object.fromEntries(new FormData(event.target).entries());
+    console.log(Object.values(formData).join(','));
+    console.log(Date.parse(startDate), Date.parse(endDate));
+
     search && dispatch(addAvailableActionCreator(true));
 
-    axios.get(urlAvailable + search)
-      .then((response) => {
-        dispatch(availableDataActionCreator([...response.data]));
-        dispatch(setCountAvailableActionCreator(0));
-
-        response.data.length < 5 && dispatch(classArrowActionCreator('homes__display-none'));
-        response.data.length > 4 && dispatch(classArrowActionCreator(''));
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
+    dispatch(requestFormActionCreator(`search=${search}&dateFrom=${Date.parse(startDate)}&dateTo=${Date.parse(endDate)}&adults=${currentAdults}&children=${Object.values(formData).join(',')}&rooms=${currentRooms}`));
   };
 
   return (
@@ -60,7 +53,7 @@ const Form = () => {
         </label>
       </div>
       <div className="header__input-date-block">
-        <p className="header__input input__date" id="chose-date">Check-in — Check-out</p>
+        <Datepicker id="checkIn" type="text" />
       </div>
       <Filters />
       <div className="header__input-button-block">
