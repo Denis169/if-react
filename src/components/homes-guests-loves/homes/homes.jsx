@@ -19,7 +19,6 @@ const Homes = () => {
   const [arrowLeft, setArrowLeft] = useState(false);
 
   useEffect(() => {
-    sessionStorage.setItem('data', JSON.stringify(dataHomes));
     dispatch(countHomesActionCreator(0));
   }, [dataHomes]);
 

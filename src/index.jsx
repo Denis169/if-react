@@ -13,11 +13,11 @@ import './styles/index.scss';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
           <App />
-        </PersistGate>
-      </Provider>
+        </Provider>
+      </PersistGate>
     </Router>
   </React.StrictMode>,
   document.getElementById('root'),

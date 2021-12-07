@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions';
 import { countHomesActionCreator, dataHomesActionCreator } from '../actionCreators';
 
 const initialState = {
-  dataHomes: '',
+  dataHomes: [],
   countHomes: 0,
 };
 

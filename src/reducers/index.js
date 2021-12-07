@@ -13,7 +13,7 @@ import datepickerReducer from './datepickerRedusers';
 const persistConfig = {
   key: 'root',
   storage,
-  // blacklist: ['authorisation', 'form'],
+  blacklist: ['authorisation'],
 };
 
 const reducers = combineReducers({

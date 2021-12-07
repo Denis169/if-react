@@ -26,6 +26,8 @@ const App = () => {
       localStorage.setItem('password', '1234');
     }
 
+    console.log('aa');
+
     if (!authorization) {
       navigate('/authorization');
     } else if (navigationChosenHotel) {
