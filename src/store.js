@@ -1,12 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { persistStore } from 'redux-persist';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
+import middleware, { sagaMiddleware } from './middleware';
 import reducers from './reducers';
+import rootSaga from './sagas';
 
-export const store = createStore(
-  reducers,
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const composeEnhancers = composeWithDevTools({});
+
+export const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

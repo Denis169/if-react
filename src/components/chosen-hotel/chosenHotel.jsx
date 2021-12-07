@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 
 import HomesCol from '../homes-guests-loves/homes-col/homes-col';
 
-import { urlChose } from '../../constants/urls';
-
-import { dataChosenHotelActionCreator, navigationChosenHotelActionCreator } from '../../actionCreators';
+import { navigationChosenHotelActionCreator, requestChosenHotelActionCreator } from '../../actionCreators';
 
 import './chosenHotel.scss';
 
@@ -19,14 +16,8 @@ const ChosenHotel = () => {
 
   useEffect(() => {
     dispatch(navigationChosenHotelActionCreator(true));
-    axios.get(urlChose + params.hotelID)
-      .then((response) => {
-        dispatch(dataChosenHotelActionCreator({ ...response.data }));
-        console.log(dataChosenHotel);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
+    dispatch(requestChosenHotelActionCreator(params.hotelID));
+
     return () => {
       dispatch(navigationChosenHotelActionCreator(false));
     };

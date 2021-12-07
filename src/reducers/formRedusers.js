@@ -4,7 +4,7 @@ import {
   addAvailableActionCreator,
   availableDataActionCreator,
   classArrowActionCreator,
-  inputSearchActionCreator,
+  inputSearchActionCreator, requestFormActionCreator,
   setCountAvailableActionCreator,
 } from '../actionCreators';
 
@@ -14,6 +14,7 @@ const initialState = {
   availableData: [],
   countAvailable: 0,
   classArrow: '',
+  requestForm: '',
 };
 
 const formReducer = handleActions(
@@ -23,6 +24,7 @@ const formReducer = handleActions(
     [availableDataActionCreator]: (state, { payload }) => ({ ...state, availableData: payload }),
     [setCountAvailableActionCreator]: (state, { payload }) => ({ ...state, countAvailable: payload }),
     [classArrowActionCreator]: (state, { payload }) => ({ ...state, classArrow: payload }),
+    [requestFormActionCreator]: (state, { payload }) => ({ ...state, requestForm: payload }),
   },
   initialState,
 );

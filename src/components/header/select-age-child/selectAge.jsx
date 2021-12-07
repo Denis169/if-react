@@ -7,7 +7,7 @@ const SelectAge = ({ name }) => (
     {[...Array(17)].map((x, i) => (
       <option
         key={i.toString()}
-        value={i.toString() + name}
+        value={(i + 1).toString()}
       >
         {`${i + 1} years old`}
       </option>
