@@ -7,7 +7,7 @@ import Dropdown from '../dropdown/dropdown';
 
 import { colorAccountActionCreator, themeActionCreator } from '../../../actionCreators';
 
-import colors from '../../../constants/style.variable';
+import { colorsTheme } from '../../../constants/style.variable';
 import logo from '../../../assets/image/TripHouse.svg';
 
 import { HeaderMenu, AccountCircle, Night, LogoAndNav, P } from './style.module';
@@ -46,7 +46,7 @@ const LogoNav = () => {
           <use href="#night-button" />
         </Night>
         <AccountCircle
-          style={colorAccount ? { fill: `${colors.secondary}` } : { fill: `${colors.white}` }}
+          style={colorAccount ? { fill: `${colorsTheme.secondary}` } : { fill: `${colorsTheme.white}` }}
           onClick={addDropdown}
         >
           <use href="#account-circle" />

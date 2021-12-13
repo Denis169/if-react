@@ -12,14 +12,12 @@ import Authorization from '../components/header/authorization';
 import Sprites from '../components/Svg/Sprites';
 import Available from '../components/homes-guests-loves/available';
 
-import colors, { colors2 } from '../constants/style.variable';
+import { colorsTheme, colorsThemeTwo } from '../constants/style.variable';
 
 import '../styles/index.scss';
 
 const App = () => {
   const navigate = useNavigate();
-  const theme = colors;
-  const theme2 = colors2;
   const available = useSelector(createSelector((state) => state.form.available, (dataArray) => dataArray));
   const authorization = useSelector(createSelector((state) => state.authorisation.authorization, (dataArray) => dataArray));
   const navigationChosenHotel = useSelector(createSelector((state) => state.chosenHotel.navigationChosenHotel, (dataArray) => dataArray));
@@ -42,7 +40,7 @@ const App = () => {
   }, [authorization]);
 
   return (
-    <ThemeProvider theme={themeColors ? theme : theme2}>
+    <ThemeProvider theme={themeColors ? colorsTheme : colorsThemeTwo}>
       <div>
         <Sprites />
         <Routes>

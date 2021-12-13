@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const colors = {
+const colorsTheme = {
   primary: '#3077c6',
   primaryDark: '#10367c',
   secondary: '#f5bd41',
@@ -14,7 +14,7 @@ const colors = {
   backgroundGray: '#eaf0f9',
 };
 
-export const colors2 = {
+const colorsThemeTwo = {
   primary: '#FF7F50',
   primaryDark: '#184E98',
   secondary: '#f5bd41',
@@ -28,9 +28,9 @@ export const colors2 = {
   backgroundGray: '#DDEFD0',
 };
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 1232px;
   margin: 0 auto;
 `;
 
-export default colors;
+export { colorsTheme, colorsThemeTwo, Container };
