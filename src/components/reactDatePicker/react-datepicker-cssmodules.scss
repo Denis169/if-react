@@ -9,4 +9,8 @@
   font-size: 19px;
   width: 130px;
   cursor: pointer;
+  color: #383838;
+  &::-webkit-input-placeholder {
+    color: #383838;
+  }
 }

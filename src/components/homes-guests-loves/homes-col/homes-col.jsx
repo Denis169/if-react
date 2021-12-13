@@ -1,20 +1,20 @@
 import React from 'react';
 
-import './homes-col.scss';
+import { Column, Image, Text, Reference } from './styles.module';
 
 const HomesCol = ({
   imageUrl, name, city, country,
 }) => (
-  <div className="homes__col">
-    <img className="homes__images" src={imageUrl} alt="Hotel" />
-    <p className="homes__link">{name}</p>
-    <p className="homes__text">
+  <Column>
+    <Image img={imageUrl} />
+    <Reference>{name}</Reference>
+    <Text className="homes__text">
       {city}
       ,
       {' '}
       {country}
-    </p>
-  </div>
+    </Text>
+  </Column>
 );
 
 export default HomesCol;

@@ -11,7 +11,7 @@ import {
 } from '../constants/formConst';
 import { DATA_HOMES, COUNT_HOMES } from '../constants/homesConst';
 import { SHOW_FILTERS, CURRENT_ADULTS, CURRENT_CHILDREN, CURRENT_ROOMS } from '../constants/filtersConst';
-import COLOR_ACCOUNT from '../constants/logo-navConst';
+import COLOR_ACCOUNT, { THEME } from '../constants/logo-navConst';
 import { DATA_CHOSEN_HOTEL, NAVIGATE_CHOSEN_HOTEL, REQUEST_CHOSEN_HOTEL } from '../constants/chosen-hotelConst';
 import { DATE_START_DATEPICKER, DATE_END_DATEPICKER } from '../constants/datepickerConst';
 
@@ -45,6 +45,7 @@ export const currentRoomsActionCreator = createAction(CURRENT_ROOMS);
 // Logo-nav
 
 export const colorAccountActionCreator = createAction(COLOR_ACCOUNT);
+export const themeActionCreator = createAction(THEME);
 
 // Chosen-Hotel
 

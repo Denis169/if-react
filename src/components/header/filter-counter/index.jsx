@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import SelectAge from '../select-age-child/selectAge';
+import SelectAge from '../select-age-child';
 
 import {
   currentAdultsActionCreator,
@@ -10,7 +10,7 @@ import {
   currentRoomsActionCreator,
 } from '../../../actionCreators';
 
-import './filter-counter.scss';
+import { FilterComponent, FilterCounters, AdultsChildrenRoom, PCounters, FilterCounterComponent, FilterChildrenAge } from './style.module';
 
 const FilterCounter = () => {
   const filterCounts = {
@@ -44,11 +44,11 @@ const FilterCounter = () => {
   };
 
   return (
-    <div className="header__filter-component">
-      <div className="header__filter-counters">
-        <div className="header__filter-adults">
-          <p>Adults</p>
-          <div className="header__filter-counter">
+    <FilterComponent>
+      <FilterCounters>
+        <AdultsChildrenRoom>
+          <PCounters>Adults</PCounters>
+          <FilterCounterComponent>
             <button
               className={currentAdults === filterCounts.adults.min ? 'button-off' : ''}
               type="button"
@@ -72,11 +72,11 @@ const FilterCounter = () => {
             >
               &#43;
             </button>
-          </div>
-        </div>
-        <div className="header__filter-children">
-          <p>Children</p>
-          <div className="header__filter-counter">
+          </FilterCounterComponent>
+        </AdultsChildrenRoom>
+        <AdultsChildrenRoom>
+          <PCounters>Children</PCounters>
+          <FilterCounterComponent>
             <button
               className={currentChildren === filterCounts.children.min ? 'button-off' : ''}
               type="button"
@@ -100,11 +100,11 @@ const FilterCounter = () => {
             >
               &#43;
             </button>
-          </div>
-        </div>
-        <div className="header__filter-room">
-          <p>Room</p>
-          <div className="header__filter-counter">
+          </FilterCounterComponent>
+        </AdultsChildrenRoom>
+        <AdultsChildrenRoom>
+          <PCounters>Room</PCounters>
+          <FilterCounterComponent>
             <button
               className={currentRooms === filterCounts.rooms.min ? 'button-off' : ''}
               type="button"
@@ -128,14 +128,12 @@ const FilterCounter = () => {
             >
               &#43;
             </button>
-          </div>
-        </div>
-      </div>
-      <div className={currentChildren > filterCounts.children.min
-        ? 'header__filter-children-age'
-        : 'display-none'}
-      >
-        <p id="children">
+          </FilterCounterComponent>
+        </AdultsChildrenRoom>
+      </FilterCounters>
+      {currentChildren > filterCounts.children.min && (
+      <FilterChildrenAge>
+        <p>
           What is the age of the child you’re
           {' '}
           <br />
@@ -148,8 +146,9 @@ const FilterCounter = () => {
             key={i.toString()}
           />
         ))}
-      </div>
-    </div>
+      </FilterChildrenAge>
+      )}
+    </FilterComponent>
   );
 };
 

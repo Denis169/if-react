@@ -1,28 +1,53 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import styled from '@emotion/styled';
 
 import SignOut from '../../../assets/image/signOut.svg';
 
 import { authorizationActionCreator } from '../../../actionCreators';
 
-import './dropdown.scss';
+const Button = styled.button`
+  position: absolute;
+  width: 192px;
+  height: 50px;
+  padding: 15px;
+  background-color: ${(props) => props.theme.white};
+  right: 0;
+  top: 80px;
+  display: flex;
+  cursor: pointer;
+`;
 
-const Dropdown = ({ authorization }) => {
+const Image = styled.img`
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 18px;
+  margin-right: 16px;
+`;
+
+const P = styled.p`
+  display: block;
+  width: 73px;
+  height: 23px;
+  font-size: 20px;
+  line-height: 23px;
+`;
+
+const Dropdown = () => {
+  const dispatch = useDispatch();
   const nullPassword = (event) => {
     event.preventDefault();
-    authorization(false);
+    dispatch(authorizationActionCreator(false));
   };
 
   return (
-    <button type="button" className="dropdown" onClick={nullPassword}>
-      <img className="dropdown__image-out" src={SignOut} alt="out" />
-      <p className="dropdown__sign-out">Sign out</p>
-    </button>
+    <Button type="button" onClick={nullPassword}>
+      <Image img={SignOut} />
+      <P>Sign out</P>
+    </Button>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  authorization: (value) => dispatch(authorizationActionCreator(value)),
-});
-
-export default connect(null, mapDispatchToProps)(Dropdown);
+export default Dropdown;

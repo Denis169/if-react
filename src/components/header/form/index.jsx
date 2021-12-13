@@ -2,15 +2,16 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import Filters from '../filters/filters';
-import Datepicker from '../datepicker/datepicker';
+import Filters from '../filters';
+import Datepicker from '../datepicker';
 
 import {
   addAvailableActionCreator,
-  inputSearchActionCreator, requestFormActionCreator,
+  inputSearchActionCreator,
+  requestFormActionCreator,
 } from '../../../actionCreators';
 
-import './form.scss';
+import { HeaderForm, EnterDate, EnterText, Button } from './style.module';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,6 @@ const Form = () => {
     event.preventDefault();
 
     const formData = Object.fromEntries(new FormData(event.target).entries());
-    console.log(Object.values(formData).join(','));
-    console.log(Date.parse(startDate), Date.parse(endDate));
 
     search && dispatch(addAvailableActionCreator(true));
 
@@ -38,12 +37,11 @@ const Form = () => {
   };
 
   return (
-    <form className="header__form" onSubmit={addAvailable}>
-      <div className="header__input-place-block">
-        <label className="header__input input__place" htmlFor="place">
+    <HeaderForm onSubmit={addAvailable}>
+      <EnterText>
+        <label htmlFor="place">
           Your destination or hotel name:
           <input
-            className="header__input input__place "
             id="place"
             type="text"
             placeholder="New York"
@@ -51,15 +49,15 @@ const Form = () => {
             onChange={searchChange}
           />
         </label>
-      </div>
-      <div className="header__input-date-block">
-        <Datepicker id="checkIn" type="text" />
-      </div>
+      </EnterText>
+      <EnterDate>
+        <Datepicker />
+      </EnterDate>
       <Filters />
-      <div className="header__input-button-block">
-        <input className="header__input input-button" type="submit" value="Submit" />
-      </div>
-    </form>
+      <Button>
+        <input type="submit" value="Submit" />
+      </Button>
+    </HeaderForm>
   );
 };
 
