@@ -1,12 +1,28 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
+import styled from '@emotion/styled';
 
-import FilterCounter from '../filter-counter/filter-counter';
+import FilterCounter from '../filter-counter';
 
 import { showFiltersActionCreator } from '../../../actionCreators';
 
-import './filters.scss';
+const Button = styled.button`
+  flex-basis: 26%;
+  position: relative;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const P = styled.p`
+  padding: 0 25px 0 25px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+`;
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -22,11 +38,11 @@ const Filters = () => {
 
   return (
     <>
-      <button type="button" className="header__input-adults-block" onClick={showBlock}>
-        <p className="header__input input__adults">
-          { `${currentAdults} Adults - ${currentChildren} Children - ${currentRooms} Room`}
-        </p>
-      </button>
+      <Button type="button" onClick={showBlock}>
+        <P>
+          {`${currentAdults} Adults - ${currentChildren} Children - ${currentRooms} Room`}
+        </P>
+      </Button>
       {showFilters && <FilterCounter />}
     </>
   );

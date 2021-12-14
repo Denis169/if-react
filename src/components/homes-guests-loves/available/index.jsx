@@ -9,7 +9,7 @@ import ArrowLeft from '../../Svg/arrow-left/arrow-left';
 
 import { setCountAvailableActionCreator } from '../../../actionCreators';
 
-import './available.scss';
+import { AvailableComponent, AvailableSection, H2, AvailableColumn } from './styles.module';
 
 const Available = () => {
   const dispatch = useDispatch();
@@ -45,30 +45,28 @@ const Available = () => {
   };
 
   return (
-    <div className="homes">
-      <div className="container">
-        <h2 className="available__caption">Available hotels</h2>
-        <div className="available__section">
-          <div className="available__section-col" id="available__section-col">
-            {availableData.length === 0 && 'Match not found, try setting other search options!'}
-            <nav>
-              {availableData.filter((place, i) => i >= countAvailable && i <= countAvailable + 3).map((place) => (
-                <Link to={`/hotels/${place.id}`} key={place.id}>
-                  <HomesCol
-                    name={place.name}
-                    imageUrl={place.imageUrl}
-                    city={place.city}
-                    country={place.country}
-                  />
-                </Link>
-              ))}
-            </nav>
-          </div>
-          {arrowRight && <ArrowRight right={clickRight} classArrow={classArrow} key={19} />}
-          {arrowLeft && <ArrowLeft classArrow={classArrow} left={clickLeft} key={20} />}
-        </div>
-      </div>
-    </div>
+    <AvailableComponent>
+      <H2>Available hotels</H2>
+      <AvailableSection>
+        <AvailableColumn>
+          {availableData.length === 0 && 'Match not found, try setting other search options!'}
+          <nav>
+            {availableData.filter((place, i) => i >= countAvailable && i <= countAvailable + 3).map((place) => (
+              <Link to={`/hotels/${place.id}`} key={place.id}>
+                <HomesCol
+                  name={place.name}
+                  imageUrl={place.imageUrl}
+                  city={place.city}
+                  country={place.country}
+                />
+              </Link>
+            ))}
+          </nav>
+        </AvailableColumn>
+        {arrowRight && <ArrowRight right={clickRight} classArrow={classArrow} key={19} />}
+        {arrowLeft && <ArrowLeft classArrow={classArrow} left={clickLeft} key={20} />}
+      </AvailableSection>
+    </AvailableComponent>
   );
 };
 

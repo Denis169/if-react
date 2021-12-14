@@ -1,19 +1,30 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
 import google from '../../../assets/image/google-play-badge.svg';
 import apple from '../../../assets/image/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917-1.svg';
 
-import './market.scss';
+const MarketSection = styled.div`
+  display: flex;
+  justify-content: center;
+  & a{
+    & img{
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-bottom: 120px;
+    }
+  }
+`;
 
 const Market = () => (
-  <div className="header__market">
+  <MarketSection>
     <a href="https://play.google.com/store">
-      <img className="header__google-apple-image" src={google} alt="Googleplay" />
+      <img src={google} alt="Googleplay" />
     </a>
     <a href="https://www.apple.com/store">
-      <img className="header__google-apple-image" src={apple} alt="App Store" />
+      <img src={apple} alt="App Store" />
     </a>
-  </div>
+  </MarketSection>
 );
 
 export default Market;

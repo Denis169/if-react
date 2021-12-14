@@ -5,18 +5,19 @@ import { createSelector } from 'reselect';
 
 import Dropdown from '../dropdown/dropdown';
 
-import { colorAccountActionCreator } from '../../../actionCreators';
+import { colorAccountActionCreator, themeActionCreator } from '../../../actionCreators';
 
+import { colorsTheme } from '../../../constants/style.variable';
 import logo from '../../../assets/image/TripHouse.svg';
-import night from '../../../assets/image/Night.svg';
 
-import './logo-nav.scss';
+import { HeaderMenu, AccountCircle, Night, LogoAndNav, P } from './style.module';
 
 const LogoNav = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
   const colorAccount = useSelector(createSelector((state) => state.logoNav.colorAccount, (data) => data));
+  const theme = useSelector(createSelector((state) => state.logoNav.theme, (data) => data));
 
   useEffect(() => {
     params.authorization === 'authorization' && dispatch(colorAccountActionCreator(false));
@@ -27,30 +28,32 @@ const LogoNav = () => {
     colorAccount ? dispatch(colorAccountActionCreator(false)) : dispatch(colorAccountActionCreator(true));
   };
 
+  const changeTheme = (event) => {
+    event.preventDefault();
+    console.log(theme);
+    theme ? dispatch(themeActionCreator(false)) : dispatch(themeActionCreator(true));
+  };
+
   return (
-    <div className="header__logo-nav">
-      <div>
-        <nav>
-          <Link to="/">
-            <img className="header__svg-logo" src={logo} alt="TripHouse" />
-          </Link>
-        </nav>
-      </div>
-      <nav className="header__nav">
-        <a href="https://intellectfox.by/" className="header__nav-stays">Stays</a>
-        <a href="https://intellectfox.by/" className="header__nav-attractions">Attractions</a>
-        <a href="https://intellectfox.by/" className="header__nav-night">
-          <img className="header__svg-night" src={night} alt="night" />
-        </a>
-        <svg
-          className={colorAccount ? 'header__svg-account yellow' : 'header__svg-account white'}
+    <LogoAndNav>
+      <Link to="/">
+        <img src={logo} alt="TripHouse" />
+      </Link>
+      <HeaderMenu>
+        <P>Stays</P>
+        <P>Attractions</P>
+        <Night onClick={changeTheme}>
+          <use href="#night-button" />
+        </Night>
+        <AccountCircle
+          style={colorAccount ? { fill: `${colorsTheme.secondary}` } : { fill: `${colorsTheme.white}` }}
           onClick={addDropdown}
         >
           <use href="#account-circle" />
-        </svg>
+        </AccountCircle>
         {colorAccount && params.authorization !== 'authorization' && <Dropdown />}
-      </nav>
-    </div>
+      </HeaderMenu>
+    </LogoAndNav>
   );
 };
 

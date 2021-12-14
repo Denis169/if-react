@@ -9,7 +9,7 @@ import ArrowLeft from '../../Svg/arrow-left/arrow-left';
 
 import { countHomesActionCreator } from '../../../actionCreators';
 
-import './homes.scss';
+import { HomesComponent, H2, HomesSection, HomesColumn } from './styles.module';
 
 const Homes = () => {
   const dispatch = useDispatch();
@@ -42,29 +42,27 @@ const Homes = () => {
   };
 
   return (
-    <div className="homes">
-      <div className="container">
-        <h2 className="homes__caption">Homes guests loves</h2>
-        <div className="homes__section">
-          <div className="homes__section-col" id="homes__section-col">
-            <nav>
-              {dataHomes.filter((place, i) => i >= countHomes && i <= countHomes + 3).map((place) => (
-                <Link to={`/hotels/${place.id}`} key={place.id}>
-                  <HomesCol
-                    name={place.name}
-                    imageUrl={place.imageUrl}
-                    city={place.city}
-                    country={place.country}
-                  />
-                </Link>
-              ))}
-            </nav>
-          </div>
-          {arrowRight && <ArrowRight right={clickRight} classArrow="" key={19} />}
-          {arrowLeft && <ArrowLeft left={clickLeft} classArrow="" key={20} />}
-        </div>
-      </div>
-    </div>
+    <HomesComponent>
+      <H2>Homes guests loves</H2>
+      <HomesSection>
+        <HomesColumn>
+          <nav>
+            {dataHomes.filter((place, i) => i >= countHomes && i <= countHomes + 3).map((place) => (
+              <Link to={`/hotels/${place.id}`} key={place.id}>
+                <HomesCol
+                  name={place.name}
+                  imageUrl={place.imageUrl}
+                  city={place.city}
+                  country={place.country}
+                />
+              </Link>
+            ))}
+          </nav>
+        </HomesColumn>
+        {arrowRight && <ArrowRight right={clickRight} classArrow="" key={19} />}
+        {arrowLeft && <ArrowLeft left={clickLeft} classArrow="" key={20} />}
+      </HomesSection>
+    </HomesComponent>
   );
 };
 

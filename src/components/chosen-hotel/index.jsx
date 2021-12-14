@@ -7,7 +7,7 @@ import HomesCol from '../homes-guests-loves/homes-col/homes-col';
 
 import { navigationChosenHotelActionCreator, requestChosenHotelActionCreator } from '../../actionCreators';
 
-import './chosenHotel.scss';
+import { ChosenHotelElem, H2, BodyChosenHotel } from './styles.module';
 
 const ChosenHotel = () => {
   const params = useParams();
@@ -24,9 +24,9 @@ const ChosenHotel = () => {
   }, []);
 
   return (
-    <div className="chosen-hotel">
-      <h2 className="title__chosen-hotel">Your choice</h2>
-      <div className="body__chosen-hotel">
+    <ChosenHotelElem>
+      <H2>Your choice</H2>
+      <BodyChosenHotel>
         <HomesCol
           name={dataChosenHotel.name}
           imageUrl={dataChosenHotel.imageUrl}
@@ -34,8 +34,8 @@ const ChosenHotel = () => {
           country={dataChosenHotel.country}
           keu={dataChosenHotel.id}
         />
-      </div>
-    </div>
+      </BodyChosenHotel>
+    </ChosenHotelElem>
   );
 };
 
